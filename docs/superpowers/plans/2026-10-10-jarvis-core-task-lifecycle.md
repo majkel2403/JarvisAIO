@@ -64,19 +64,19 @@ Master status/evidence uaktualniać w miejscu, nie tworzyć równoległego statu
 
 - [ ] Napisać failing tests submit_queued_revision_one, duplicate_reordered_json, changed_payload_conflict, principal_isolation, invalid_command_no_write, concurrent_duplicate_single_event. Assert task status queued, revision=1, sequence=1, attempts=[], plan_version=0 i identyczny wynik duplicate bez nowego eventu. W drugim connection ten sam klucz tworzy jeden task.
 - [ ] Run `node --test tests/core/commands.test.mjs`; udokumentować RED.
-- [ ] Zaimplementować submit i snapshot: owner check, canonical payload, dedupe result i atomowy task+event+operation. Format eventu z master, payload_redacted tylko status/reason/plan_version/evidence_refs, nigdy surowy command.
+- [ ] Zaimplementować submit i snapshot: owner check, canonical payload, dedupe result i atomowy task+event+operation. Format eventu, type mapping i correlation_id/causation_id oraz początkowe checkpoint_ref/evidence_refs ze spec, payload_redacted tylko status/reason/plan_version/evidence_refs, nigdy surowy command.
 - [ ] Run tests Task 1/2; PASS na Linux i Windows. Sprawdzić ten sam klucz osobnych principal/source jako osobne taski.
 - [ ] Commit: `feat(core): persist idempotent task commands`.
 
 ### Task 3: Lifecycle, receipts i weryfikacja
 
 **Files:** Create src/core/task-lifecycle.mjs; Modify src/core/core.mjs; Test tests/core/lifecycle.test.mjs.
-**Interfaces:** transition(task,action) → {task,eventType} bez I/O. Core dodaje advance, beginAttempt, recordReceipt, verify, cancel, resume z sygnaturami i wynikami spec. Mutacje zapisują dedupe zanim sprawdzą stale revision; owner check zawsze pierwszy. attempt={attempt_id,invocation_id,idempotency_key,fencing_token,deadline,status,receipt}; event i revision dokładnie +1 per operacja.
+**Interfaces:** transition(task,action) → {task,eventType} bez I/O. Core dodaje advance, beginAttempt, recordReceipt, verify, cancel, resume z sygnaturami i wynikami spec. Mutacje najpierw odczytują istniejący dedupe wynik; nowe operacje sprawdzają revision przed zapisem, a dedupe result zapisują tylko w udanej atomowej transakcji; owner check zawsze pierwszy. attempt={attempt_id,invocation_id,idempotency_key,fencing_token,deadline,status,receipt}; event i revision dokładnie +1 per operacja.
 
 - [ ] Napisać table-driven failing test wszystkich dozwolonych i zabronionych przejść ze spec; completed wymaga passed verifier bieżącej próby i zgodnego evidence_ref.
-- [ ] Napisać failing tests stale_revision_no_write, concurrent_mutation_one_winner, duplicate_mutation_after_revision_change, receipt_fence_conflict, timeout_waits, cancel_unknown_no_compensation, three_attempt_limit, resume_unknown_requires_evidence. Assert terminal nie ma wyjścia; advance do completed daje invalid_input.
+- [ ] Napisać failing tests stale_revision_no_write, concurrent_mutation_one_winner, duplicate_mutation_after_revision_change, receipt_fence_conflict, timeout_waits, cancel_unknown_no_compensation, three_attempt_limit, resume_unknown_requires_evidence, cancel_waiting_unknown_conflict, receipt_status_effect_matrix, applied_resume_same_attempt_verifying, wrong_resolution_attempt_rejected, invalid_deadline_no_write, past_deadline_no_write. Deadline test nie obiecuje timer enforcement. Assert terminal nie ma wyjścia; advance do completed daje invalid_input.
 - [ ] Run `node --test tests/core/lifecycle.test.mjs`; zapisać RED.
-- [ ] Zaimplementować pure transition i metody Core. Nie wykonywać retry automatycznie. Zatrzymać unknown; nowe tokeny monotoniczne. Dowód applied nie daje uprawnienia do powtórzenia skutku.
+- [ ] Zaimplementować pure transition i metody Core. Nie wykonywać retry automatycznie. Zatrzymać unknown; nowe tokeny monotoniczne. resume applied aktualizuje zachowany receipt/próbę i przechodzi do verifying, bez beginAttempt i wykonania. cancel waiting z unknown daje conflict. Dowód applied nie daje uprawnienia do powtórzenia skutku.
 - [ ] Run tests Task 1–3; PASS. Odczytać DB, aby potwierdzić brak zapisu dla stale/invalid/late receipt.
 - [ ] Commit: `feat(core): enforce verified task lifecycle`.
 
@@ -85,7 +85,7 @@ Master status/evidence uaktualniać w miejscu, nie tworzyć równoległego statu
 **Files:** Modify src/core/core.mjs; Create tests/core/fixtures/crash-child.mjs; Test tests/core/recovery.test.mjs.
 **Interfaces:** Consumes store i lifecycle; recover({principal,operation_id}) → {tasks}. Fixture przyjmuje mode before_commit|after_commit i dbPath; parent czeka na IPC marker, następnie kończy child i otwiera DB na nowo. Fault injection istnieje tylko w fixture/test store wrapper.
 
-- [ ] Napisać failing tests running_attempt_becomes_unknown, running_without_attempt_waits, stable_states_unchanged, repeated_recover_no_duplicate, old_fence_rejected, crash_before_commit_rolls_back, crash_after_commit_replays_full_event. Assert queued/planning/verifying/waiting/terminal bez zmian i brak wywołania executor podczas recover.
+- [ ] Napisać failing tests running_attempt_becomes_unknown, running_without_attempt_waits, stable_states_unchanged, repeated_recover_no_duplicate, old_fence_rejected, recovered_applied_same_attempt_verifies, cancelled_applied_same_attempt_verifies, unrelated_resolution_evidence_rejected, crash_before_commit_rolls_back, crash_after_commit_replays_full_event. Assert queued/planning/verifying/waiting/terminal bez zmian i brak wywołania executor podczas recover.
 - [ ] Run `node --test tests/core/recovery.test.mjs`; udokumentować RED. Test po COMMIT musi mieć marker po zakończeniu transaction, nie timer.
 - [ ] Zaimplementować recover atomowo w obrębie principal, z trwałym operation dedupe oraz invalidacją tokenów. Zaimplementować IPC fixture crash bez publicznego production fault flag.
 - [ ] Run Task 1–4 na Linux i Windows; PASS. Każdy crash case otwiera istniejącą bazę zamiast tworzyć nową. Bez skip dla platformy; ograniczenie dotyczy power loss, nie testu procesu.
@@ -98,7 +98,7 @@ Master status/evidence uaktualniać w miejscu, nie tworzyć równoległego statu
 
 - [ ] Napisać failing tests replay_pages_have_no_gap, future_cursor_conflict, invalid_limit_no_write, snapshot_cursor_consistent, owner_filtered_replay, headless_artifact_verified, resumed_applied_never_executes_effect_twice. Assert event sequence rosnące, emit tylko committed, duplicate bez nowego event_id; E2E ma licznik skutków równy 1.
 - [ ] Run `node --test tests/core/replay.test.mjs`; zapisać RED.
-- [ ] Zaimplementować replay i fixtures. Harness submit→planning→running→receipt→verify wykonuje rzeczywisty tymczasowy artefakt, a verifier czyta jego treść. W scenariuszu applied resume używa verify_existing.
+- [ ] Zaimplementować replay i fixtures. Harness submit→planning→running→receipt→verify wykonuje rzeczywisty tymczasowy artefakt, a verifier czyta jego treść. W scenariuszu applied resume zachowuje attempt_id/invocation_id i przechodzi bezpośrednio do verifying; fixture verify_existing czyta zachowany artefakt, bez execute. Assert attempts.length nie rośnie i counter efektów pozostaje 1.
 - [ ] Dodać przyszły workflow PR Linux/Windows z runtime zatwierdzonym Gate 0 i `node --test tests/core/*.test.mjs`. Testy całego repo i walidatory dokumentów pozostają w phase0.yml, istniejących legacy jobs nie usuwać.
 - [ ] Wszystkie Actions GREEN; odnotować SHA/run/commands/failures/skips, ograniczenia fixture oraz gate status. Zlecić niezależny review spec→code i naprawić Critical/Important z regresją RED/GREEN.
 - [ ] Commit: `test(core): verify headless lifecycle and replay`. Nie merge; nie oznaczać live Hermes/Windows ani pełnej autonomii jako verified.
