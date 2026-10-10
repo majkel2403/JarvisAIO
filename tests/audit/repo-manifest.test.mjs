@@ -83,3 +83,25 @@ test('repo-cli-handles-Unicode-and-spaces', async () => {
     assert.equal(JSON.parse(await readFile(out, 'utf8')).status, 'verified');
   });
 });
+
+test('repo-index-fingerprints-do-not-read-working-tree-secrets',async()=>{
+ await fixture(async dir=>{
+  const r=await inspectRepository({repoDir:dir});
+  assert.equal(r.index_fingerprints.length,1);
+  assert.match(r.index_fingerprints[0].path_sha256,/^[a-f0-9]{64}$/);
+  assert.match(r.index_fingerprints[0].blob_sha,/^[a-f0-9]{40}$/);
+  assert.equal(r.upstream_relation.status,'unverified');
+  const noHashes=await inspectRepository({repoDir:dir,includeFileHashes:false});
+  assert.equal(noHashes.index_fingerprints.length,0);
+ });
+});
+test('repo-cli-unverified-exits-nonzero-without-private-path-error',async()=>{
+ const dir=await mkdtemp(join(tmpdir(),'jarvis-cli-'));
+ try {
+  const {spawnSync}=await import('node:child_process');
+  const missing=join(dir,'private-unavailable');
+  const result=spawnSync(process.execPath,['tools/audit/repo-manifest.mjs','--repo',missing,'--out',join(dir,'audit-private','snapshot.json')],{encoding:'utf8'});
+  assert.equal(result.status,1);
+  assert.equal(result.stderr.includes(missing),false);
+ }finally{await rm(dir,{recursive:true,force:true});}
+});
