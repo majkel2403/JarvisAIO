@@ -1,0 +1,378 @@
+[
+  {
+    "module_id": "core",
+    "capability": "Trwały lifecycle i stan zadań",
+    "old_paths": [
+      "js/core.js",
+      "js/store.js"
+    ],
+    "old_commit": "9713065f4489a168f3b0cf041ee8fd9c9f84eb94",
+    "dependencies": [],
+    "owner_of_state": "browser state → Core",
+    "target_boundary": "core",
+    "strategy": "replace",
+    "migration_status": "planned",
+    "baseline_test": "tests/unit/w2.test.js; execution evidence: see 09-PROJECT-STATUS.md; runtime unverified",
+    "target_test": "planned: task lifecycle, duplicate command, restart",
+    "rollback": "Keep immutable old commit and original data; adapter disabled by feature flag; restore verified pre-migration snapshot before reverting writer.",
+    "evidence_link": "https://github.com/majkel2403/Jarvis-/blob/9713065f4489a168f3b0cf041ee8fd9c9f84eb94/js/core.js",
+    "decision_adr": "D-002",
+    "rationale": "Stara granica nie zapewnia docelowej trwałości lub własności; zachować zachowanie jako baseline.",
+    "verification_status": "unverified"
+  },
+  {
+    "module_id": "hermes",
+    "capability": "Planowanie i proxy rozmowy",
+    "old_paths": [
+      "hermes/HERMES.md",
+      "bridge/jarvis_bridge.py"
+    ],
+    "old_commit": "9713065f4489a168f3b0cf041ee8fd9c9f84eb94",
+    "dependencies": [
+      "core",
+      "registry"
+    ],
+    "owner_of_state": "Core tasks; Hermes conversation",
+    "target_boundary": "hermes",
+    "strategy": "adapter",
+    "migration_status": "planned",
+    "baseline_test": "hermes/tests/test_jarvis_events.py; execution evidence: see 09-PROJECT-STATUS.md; runtime unverified",
+    "target_test": "planned: planner timeout, no-UI tool execution",
+    "rollback": "Keep immutable old commit and original data; adapter disabled by feature flag; restore verified pre-migration snapshot before reverting writer.",
+    "evidence_link": "https://github.com/majkel2403/Jarvis-/blob/9713065f4489a168f3b0cf041ee8fd9c9f84eb94/hermes/HERMES.md",
+    "decision_adr": "D-001",
+    "rationale": "Izolować istniejącą integrację, zweryfikować zgodność i ownership przed przeniesieniem.",
+    "verification_status": "unverified"
+  },
+  {
+    "module_id": "bridge",
+    "capability": "Transport narzędzi i receipts",
+    "old_paths": [
+      "bridge/jarvis_bridge.py",
+      "js/bridge.js"
+    ],
+    "old_commit": "9713065f4489a168f3b0cf041ee8fd9c9f84eb94",
+    "dependencies": [
+      "core",
+      "registry"
+    ],
+    "owner_of_state": "Bridge invocation; Core durable receipt",
+    "target_boundary": "bridge",
+    "strategy": "refactor",
+    "migration_status": "planned",
+    "baseline_test": "tests/unit/bridge.test.js; execution evidence: see 09-PROJECT-STATUS.md; runtime unverified",
+    "target_test": "planned: timeout effect unknown, reconciliation",
+    "rollback": "Keep immutable old commit and original data; adapter disabled by feature flag; restore verified pre-migration snapshot before reverting writer.",
+    "evidence_link": "https://github.com/majkel2403/Jarvis-/blob/9713065f4489a168f3b0cf041ee8fd9c9f84eb94/bridge/jarvis_bridge.py",
+    "decision_adr": "D-001",
+    "rationale": "Zachować zdolność, usunąć zależność od karty/niestabilnego stanu przez kontrakt Core.",
+    "verification_status": "unverified"
+  },
+  {
+    "module_id": "registry",
+    "capability": "Schema i katalog narzędzi",
+    "old_paths": [
+      "js/registry.js",
+      "js/mcp-tool-schema.js",
+      "bridge/tools.json"
+    ],
+    "old_commit": "9713065f4489a168f3b0cf041ee8fd9c9f84eb94",
+    "dependencies": [
+      "core"
+    ],
+    "owner_of_state": "registry catalogue",
+    "target_boundary": "registry",
+    "strategy": "adapter",
+    "migration_status": "planned",
+    "baseline_test": "tests/unit/registry.test.js; execution evidence: see 09-PROJECT-STATUS.md; runtime unverified",
+    "target_test": "planned: schema version + authority + dedupe",
+    "rollback": "Keep immutable old commit and original data; adapter disabled by feature flag; restore verified pre-migration snapshot before reverting writer.",
+    "evidence_link": "https://github.com/majkel2403/Jarvis-/blob/9713065f4489a168f3b0cf041ee8fd9c9f84eb94/js/registry.js",
+    "decision_adr": "D-002",
+    "rationale": "Izolować istniejącą integrację, zweryfikować zgodność i ownership przed przeniesieniem.",
+    "verification_status": "unverified"
+  },
+  {
+    "module_id": "workflow",
+    "capability": "Kroki, kontrola wyniku i wznowienie",
+    "old_paths": [
+      "bridge/workflow_engine.py",
+      "workflows/schema.json"
+    ],
+    "old_commit": "9713065f4489a168f3b0cf041ee8fd9c9f84eb94",
+    "dependencies": [
+      "core",
+      "hermes",
+      "bridge"
+    ],
+    "owner_of_state": "Bridge run files → Core",
+    "target_boundary": "workflow",
+    "strategy": "refactor",
+    "migration_status": "planned",
+    "baseline_test": "bridge/test_workflows.py; execution evidence: see 09-PROJECT-STATUS.md; runtime unverified",
+    "target_test": "planned: lease, recovery and failed test repair",
+    "rollback": "Keep immutable old commit and original data; adapter disabled by feature flag; restore verified pre-migration snapshot before reverting writer.",
+    "evidence_link": "https://github.com/majkel2403/Jarvis-/blob/9713065f4489a168f3b0cf041ee8fd9c9f84eb94/bridge/workflow_engine.py",
+    "decision_adr": "D-002",
+    "rationale": "Zachować zdolność, usunąć zależność od karty/niestabilnego stanu przez kontrakt Core.",
+    "verification_status": "unverified"
+  },
+  {
+    "module_id": "event-bus",
+    "capability": "Trwałe zdarzenia i replay",
+    "old_paths": [
+      "js/events.js",
+      "hermes/plugins/jarvis-events/__init__.py"
+    ],
+    "old_commit": "9713065f4489a168f3b0cf041ee8fd9c9f84eb94",
+    "dependencies": [
+      "core"
+    ],
+    "owner_of_state": "in-memory queues → Core event log",
+    "target_boundary": "event-bus",
+    "strategy": "replace",
+    "migration_status": "planned",
+    "baseline_test": "tests/unit/flow.test.js; execution evidence: see 09-PROJECT-STATUS.md; runtime unverified",
+    "target_test": "planned: gap, duplicate event, restart outbox",
+    "rollback": "Keep immutable old commit and original data; adapter disabled by feature flag; restore verified pre-migration snapshot before reverting writer.",
+    "evidence_link": "https://github.com/majkel2403/Jarvis-/blob/9713065f4489a168f3b0cf041ee8fd9c9f84eb94/js/events.js",
+    "decision_adr": "D-002",
+    "rationale": "Stara granica nie zapewnia docelowej trwałości lub własności; zachować zachowanie jako baseline.",
+    "verification_status": "unverified"
+  },
+  {
+    "module_id": "memory",
+    "capability": "Kontekst i Obsidian",
+    "old_paths": [
+      "js/context.js",
+      "hermes/plugins/obsidian-brain/__init__.py"
+    ],
+    "old_commit": "9713065f4489a168f3b0cf041ee8fd9c9f84eb94",
+    "dependencies": [
+      "core"
+    ],
+    "owner_of_state": "browser/Obsidian → namespaced memory owner",
+    "target_boundary": "memory",
+    "strategy": "adapter",
+    "migration_status": "planned",
+    "baseline_test": "hermes/tests/test_obsidian_brain.py; execution evidence: see 09-PROJECT-STATUS.md; runtime unverified",
+    "target_test": "planned: scope, TTL, provenance and writer conflict",
+    "rollback": "Keep immutable old commit and original data; adapter disabled by feature flag; restore verified pre-migration snapshot before reverting writer.",
+    "evidence_link": "https://github.com/majkel2403/Jarvis-/blob/9713065f4489a168f3b0cf041ee8fd9c9f84eb94/js/context.js",
+    "decision_adr": "D-002",
+    "rationale": "Izolować istniejącą integrację, zweryfikować zgodność i ownership przed przeniesieniem.",
+    "verification_status": "unverified"
+  },
+  {
+    "module_id": "agents",
+    "capability": "Izolowani wykonawcy",
+    "old_paths": [
+      "bridge/agents.py",
+      "bridge/web_task.py"
+    ],
+    "old_commit": "9713065f4489a168f3b0cf041ee8fd9c9f84eb94",
+    "dependencies": [
+      "core",
+      "bridge"
+    ],
+    "owner_of_state": "in-memory execution → durable attempts",
+    "target_boundary": "agents",
+    "strategy": "refactor",
+    "migration_status": "planned",
+    "baseline_test": "bridge/test_agents_unit.py; execution evidence: see 09-PROJECT-STATUS.md; runtime unverified",
+    "target_test": "planned: fencing, concurrent file ownership",
+    "rollback": "Keep immutable old commit and original data; adapter disabled by feature flag; restore verified pre-migration snapshot before reverting writer.",
+    "evidence_link": "https://github.com/majkel2403/Jarvis-/blob/9713065f4489a168f3b0cf041ee8fd9c9f84eb94/bridge/agents.py",
+    "decision_adr": "D-002",
+    "rationale": "Zachować zdolność, usunąć zależność od karty/niestabilnego stanu przez kontrakt Core.",
+    "verification_status": "unverified"
+  },
+  {
+    "module_id": "jev",
+    "capability": "Opcjonalna decyzja i fallback",
+    "old_paths": [
+      "js/jev-policy.js",
+      "js/judge.js"
+    ],
+    "old_commit": "9713065f4489a168f3b0cf041ee8fd9c9f84eb94",
+    "dependencies": [
+      "hermes",
+      "registry"
+    ],
+    "owner_of_state": "optional decision advice",
+    "target_boundary": "jev",
+    "strategy": "adapter",
+    "migration_status": "planned",
+    "baseline_test": "tests/unit/policy.test.js; execution evidence: see 09-PROJECT-STATUS.md; runtime unverified",
+    "target_test": "planned: no Jev, timeout, calibrated confidence",
+    "rollback": "Keep immutable old commit and original data; adapter disabled by feature flag; restore verified pre-migration snapshot before reverting writer.",
+    "evidence_link": "https://github.com/majkel2403/Jarvis-/blob/9713065f4489a168f3b0cf041ee8fd9c9f84eb94/js/jev-policy.js",
+    "decision_adr": "D-003",
+    "rationale": "Izolować istniejącą integrację, zweryfikować zgodność i ownership przed przeniesieniem.",
+    "verification_status": "unverified"
+  },
+  {
+    "module_id": "desktop",
+    "capability": "Okna, widgety, Process Log",
+    "old_paths": [
+      "js/core.js",
+      "js/widgets.js",
+      "js/process.js"
+    ],
+    "old_commit": "9713065f4489a168f3b0cf041ee8fd9c9f84eb94",
+    "dependencies": [
+      "core",
+      "event-bus"
+    ],
+    "owner_of_state": "UI local view; tasks in Core",
+    "target_boundary": "desktop",
+    "strategy": "refactor",
+    "migration_status": "planned",
+    "baseline_test": "tests/unit/w1.test.js; execution evidence: see 09-PROJECT-STATUS.md; runtime unverified",
+    "target_test": "planned: snapshot/replay projection and disconnect",
+    "rollback": "Keep immutable old commit and original data; adapter disabled by feature flag; restore verified pre-migration snapshot before reverting writer.",
+    "evidence_link": "https://github.com/majkel2403/Jarvis-/blob/9713065f4489a168f3b0cf041ee8fd9c9f84eb94/js/core.js",
+    "decision_adr": "D-002",
+    "rationale": "Zachować zdolność, usunąć zależność od karty/niestabilnego stanu przez kontrakt Core.",
+    "verification_status": "unverified"
+  },
+  {
+    "module_id": "mobile",
+    "capability": "Responsywny klient",
+    "old_paths": [
+      "css/jarvis.css",
+      "index.html"
+    ],
+    "old_commit": "9713065f4489a168f3b0cf041ee8fd9c9f84eb94",
+    "dependencies": [
+      "desktop",
+      "core"
+    ],
+    "owner_of_state": "UI view state",
+    "target_boundary": "mobile",
+    "strategy": "refactor",
+    "migration_status": "planned",
+    "baseline_test": "tests/e2e/smoke.js; execution evidence: see 09-PROJECT-STATUS.md; runtime unverified",
+    "target_test": "planned: 390x844, touch, reconnect, accessibility",
+    "rollback": "Keep immutable old commit and original data; adapter disabled by feature flag; restore verified pre-migration snapshot before reverting writer.",
+    "evidence_link": "https://github.com/majkel2403/Jarvis-/blob/9713065f4489a168f3b0cf041ee8fd9c9f84eb94/css/jarvis.css",
+    "decision_adr": "D-002",
+    "rationale": "Zachować zdolność, usunąć zależność od karty/niestabilnego stanu przez kontrakt Core.",
+    "verification_status": "unverified"
+  },
+  {
+    "module_id": "orb",
+    "capability": "Renderer prawdziwych eventów",
+    "old_paths": [
+      "js/hud.js",
+      "js/events.js"
+    ],
+    "old_commit": "9713065f4489a168f3b0cf041ee8fd9c9f84eb94",
+    "dependencies": [
+      "event-bus"
+    ],
+    "owner_of_state": "ephemeral animation projection",
+    "target_boundary": "orb",
+    "strategy": "refactor",
+    "migration_status": "planned",
+    "baseline_test": "tests/unit/flow.test.js; execution evidence: see 09-PROJECT-STATUS.md; runtime unverified",
+    "target_test": "planned: event mapping, reduced motion, perf",
+    "rollback": "Keep immutable old commit and original data; adapter disabled by feature flag; restore verified pre-migration snapshot before reverting writer.",
+    "evidence_link": "https://github.com/majkel2403/Jarvis-/blob/9713065f4489a168f3b0cf041ee8fd9c9f84eb94/js/hud.js",
+    "decision_adr": "D-002",
+    "rationale": "Zachować zdolność, usunąć zależność od karty/niestabilnego stanu przez kontrakt Core.",
+    "verification_status": "unverified"
+  },
+  {
+    "module_id": "cinema",
+    "capability": "Film i replay zadań",
+    "old_paths": [
+      "js/film-scenarios.js",
+      "js/workflow-cinema.js"
+    ],
+    "old_commit": "9713065f4489a168f3b0cf041ee8fd9c9f84eb94",
+    "dependencies": [
+      "event-bus",
+      "desktop"
+    ],
+    "owner_of_state": "UI projection",
+    "target_boundary": "cinema",
+    "strategy": "defer",
+    "migration_status": "planned",
+    "baseline_test": "tests/unit/film-scenarios.test.js; execution evidence: see 09-PROJECT-STATUS.md; runtime unverified",
+    "target_test": "planned: task-scoped replay with committed events",
+    "rollback": "Keep immutable old commit and original data; adapter disabled by feature flag; restore verified pre-migration snapshot before reverting writer.",
+    "evidence_link": "https://github.com/majkel2403/Jarvis-/blob/9713065f4489a168f3b0cf041ee8fd9c9f84eb94/js/film-scenarios.js",
+    "decision_adr": "D-002",
+    "rationale": "Nie blokuje MVP Core; osobna specyfikacja i późniejsza migracja.",
+    "verification_status": "unverified"
+  },
+  {
+    "module_id": "tests",
+    "capability": "Harness i fixtures",
+    "old_paths": [
+      "tests/harness.js",
+      "tests/unit/registry.test.js"
+    ],
+    "old_commit": "9713065f4489a168f3b0cf041ee8fd9c9f84eb94",
+    "dependencies": [],
+    "owner_of_state": "test runner isolated fixture",
+    "target_boundary": "tests",
+    "strategy": "reuse",
+    "migration_status": "planned",
+    "baseline_test": "node --test tests/unit/*.test.js; execution evidence: see 09-PROJECT-STATUS.md; runtime unverified",
+    "target_test": "planned: new contract fixtures and regression baseline",
+    "rollback": "Keep immutable old commit and original data; adapter disabled by feature flag; restore verified pre-migration snapshot before reverting writer.",
+    "evidence_link": "https://github.com/majkel2403/Jarvis-/blob/9713065f4489a168f3b0cf041ee8fd9c9f84eb94/tests/harness.js",
+    "decision_adr": "D-004",
+    "rationale": "Przenieść dopiero po sprawdzeniu licencji, zależności i fixture isolation.",
+    "verification_status": "unverified"
+  },
+  {
+    "module_id": "deployment",
+    "capability": "CI i deployment",
+    "old_paths": [
+      ".github/workflows/ci.yml",
+      ".github/workflows/pages.yml"
+    ],
+    "old_commit": "9713065f4489a168f3b0cf041ee8fd9c9f84eb94",
+    "dependencies": [
+      "tests"
+    ],
+    "owner_of_state": "CI configuration; deployments external",
+    "target_boundary": "deployment",
+    "strategy": "replace",
+    "migration_status": "planned",
+    "baseline_test": "legacy CI isolated checkout; execution evidence: see 09-PROJECT-STATUS.md; runtime unverified",
+    "target_test": "planned: no-secret pipeline, Core service deploy plan",
+    "rollback": "Keep immutable old commit and original data; adapter disabled by feature flag; restore verified pre-migration snapshot before reverting writer.",
+    "evidence_link": "https://github.com/majkel2403/Jarvis-/blob/9713065f4489a168f3b0cf041ee8fd9c9f84eb94/.github/workflows/ci.yml",
+    "decision_adr": "D-004",
+    "rationale": "Stara granica nie zapewnia docelowej trwałości lub własności; zachować zachowanie jako baseline.",
+    "verification_status": "unverified"
+  },
+  {
+    "module_id": "labs",
+    "capability": "Trading i eksperymenty",
+    "old_paths": [
+      "js/chart.js",
+      "js/apps.js"
+    ],
+    "old_commit": "9713065f4489a168f3b0cf041ee8fd9c9f84eb94",
+    "dependencies": [
+      "core",
+      "event-bus"
+    ],
+    "owner_of_state": "separate lab dataset",
+    "target_boundary": "labs",
+    "strategy": "defer",
+    "migration_status": "planned",
+    "baseline_test": "tests/unit/api-fixtures.test.js; execution evidence: see 09-PROJECT-STATUS.md; runtime unverified",
+    "target_test": "planned: paper-only simulated events with provenance",
+    "rollback": "Keep immutable old commit and original data; adapter disabled by feature flag; restore verified pre-migration snapshot before reverting writer.",
+    "evidence_link": "https://github.com/majkel2403/Jarvis-/blob/9713065f4489a168f3b0cf041ee8fd9c9f84eb94/js/chart.js",
+    "decision_adr": "D-002",
+    "rationale": "Nie blokuje MVP Core; osobna specyfikacja i późniejsza migracja.",
+    "verification_status": "unverified"
+  }
+]

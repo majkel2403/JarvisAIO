@@ -1,0 +1,1149 @@
+{
+  "captured_at": "2026-10-10",
+  "source_repo": "majkel2403/Jarvis-",
+  "head_sha": "9713065f4489a168f3b0cf041ee8fd9c9f84eb94",
+  "truncated": false,
+  "scope": "remote-committed-files-only; local worktrees and dirty files unverified",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "blob_sha": "bc2418d614f21aa2498e3e9a6072315028eb5e52",
+      "size": 90
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "blob_sha": "347226c2edd9a5df053a720681ddaa0760b42391",
+      "size": 1983
+    },
+    {
+      "path": ".github/workflows/jev-contract.yml",
+      "blob_sha": "8b4f6b028379c24ee9713254f742393777de401e",
+      "size": 2039
+    },
+    {
+      "path": ".github/workflows/pages.yml",
+      "blob_sha": "b2355d94aa1a5374931e970c889a9e4cbc7944b5",
+      "size": 1817
+    },
+    {
+      "path": ".gitignore",
+      "blob_sha": "6bdd17995cb97b1507e80401f82451351ea08d4b",
+      "size": 72
+    },
+    {
+      "path": ".nojekyll",
+      "blob_sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "size": 0
+    },
+    {
+      "path": "README.md",
+      "blob_sha": "2079dac1819c108c3c7f538f01bea08ea4ba69f3",
+      "size": 15042
+    },
+    {
+      "path": "assets/icon.svg",
+      "blob_sha": "918f98b8665436a0b799ed61d5b558d04c4a3ef6",
+      "size": 907
+    },
+    {
+      "path": "assets/wallpaper.jpg",
+      "blob_sha": "3215de008200d916993e009d3da682ae62603b2b",
+      "size": 279116
+    },
+    {
+      "path": "bridge/agents.py",
+      "blob_sha": "6b1f0eef5cc3b290606f251cf37276e0def9a2cc",
+      "size": 21905
+    },
+    {
+      "path": "bridge/day_history.py",
+      "blob_sha": "19c69de81d1c6b804177b5feefe28531deb963ae",
+      "size": 3616
+    },
+    {
+      "path": "bridge/export-tools.js",
+      "blob_sha": "bd05ab663cfd51e1f0d4dfa680b9a4ec3d35ba78",
+      "size": 1086
+    },
+    {
+      "path": "bridge/fake_computer.py",
+      "blob_sha": "9e44aa7217ac805a4d415a2cd642485618088c61",
+      "size": 1076
+    },
+    {
+      "path": "bridge/install-autostart.ps1",
+      "blob_sha": "bde52d6cd54c5cf2ec9515525646f8bf0a6682b3",
+      "size": 4115
+    },
+    {
+      "path": "bridge/jarvis_bridge.py",
+      "blob_sha": "0f18ab6ffbca9ba219d975524270ec5467103bb8",
+      "size": 77802
+    },
+    {
+      "path": "bridge/mock_hermes.py",
+      "blob_sha": "59fdd6337319f5431784112dfe5493ed2e61578f",
+      "size": 3643
+    },
+    {
+      "path": "bridge/redeploy.ps1",
+      "blob_sha": "55de84640d93fe125978998d6790cb662398759f",
+      "size": 2748
+    },
+    {
+      "path": "bridge/restart-gateway.ps1",
+      "blob_sha": "eb6cf6038b7323a240037990c0687652198b4e1d",
+      "size": 3731
+    },
+    {
+      "path": "bridge/run-service.ps1",
+      "blob_sha": "e1c66758add6e54ec4b0c89cdaa1f64585d8e148",
+      "size": 3989
+    },
+    {
+      "path": "bridge/serve_site.py",
+      "blob_sha": "b211b4bf8cb4d00d021bd5910719ae61d36058be",
+      "size": 1504
+    },
+    {
+      "path": "bridge/start-bridge.bat",
+      "blob_sha": "dd85b3eb3ce6d070e571a04c3230c057e9cddd73",
+      "size": 302
+    },
+    {
+      "path": "bridge/system_info.py",
+      "blob_sha": "71d359986fea0588587cc6bcd9433d7a10e9c6cb",
+      "size": 6595
+    },
+    {
+      "path": "bridge/test_agents.py",
+      "blob_sha": "ea95be1b9f77d934325fc1a0ae21d87abf2d5aad",
+      "size": 12316
+    },
+    {
+      "path": "bridge/test_agents_unit.py",
+      "blob_sha": "f396c63be0b29d0ca9afa45b03d2512d9c28ad53",
+      "size": 1837
+    },
+    {
+      "path": "bridge/test_bridge.py",
+      "blob_sha": "7e134ebcd5a15b9463533cd51780cfe2e5eca2b6",
+      "size": 24907
+    },
+    {
+      "path": "bridge/test_day_history.py",
+      "blob_sha": "38051b4f8d24eb94cb8b761f5d500754f9d10345",
+      "size": 3063
+    },
+    {
+      "path": "bridge/test_system_info.py",
+      "blob_sha": "de6c67bf16209e5e448b90ffbc581f90eba3f1a6",
+      "size": 3562
+    },
+    {
+      "path": "bridge/test_web_task.py",
+      "blob_sha": "0129c37ec97f1992470d3ff91d27549f40d95025",
+      "size": 7819
+    },
+    {
+      "path": "bridge/test_workflows.py",
+      "blob_sha": "b75daa4ee89a3b7e06dbaf5498fd52671d94d82a",
+      "size": 18697
+    },
+    {
+      "path": "bridge/test_writer_proxy.py",
+      "blob_sha": "c6bafd86ec6430cb575bed1f477ef943be98c007",
+      "size": 5476
+    },
+    {
+      "path": "bridge/tests/README.md",
+      "blob_sha": "68d75c196cfb205cf13927c91a129a2956d5d7dc",
+      "size": 4534
+    },
+    {
+      "path": "bridge/tests/__init__.py",
+      "blob_sha": "3a5538aef2aa22b89e74bf5fe4897b74147949bd",
+      "size": 295
+    },
+    {
+      "path": "bridge/tests/e2e_client.py",
+      "blob_sha": "2f8f1eac78d1d856de2a1f056e0becbd199be8da",
+      "size": 6547
+    },
+    {
+      "path": "bridge/tests/run_e2e.py",
+      "blob_sha": "7184d3207541f4d67cbbf37bbd68828fdd920fba",
+      "size": 8411
+    },
+    {
+      "path": "bridge/tests/test_alert_flow.py",
+      "blob_sha": "2ab647007a369075cf5cbd0a17bb20795941cd7e",
+      "size": 3882
+    },
+    {
+      "path": "bridge/tests/test_circuit_breaker.py",
+      "blob_sha": "be8b408820a87af5243bea7cb1c35da7d131bec3",
+      "size": 16781
+    },
+    {
+      "path": "bridge/tests/test_desktop_open.py",
+      "blob_sha": "6c998c1886aa8e8f13cb764719423a42495c3486",
+      "size": 4865
+    },
+    {
+      "path": "bridge/tests/test_happy_path.py",
+      "blob_sha": "bfd38efeb16bcde06f6648941e1b19d4548fe4b8",
+      "size": 2851
+    },
+    {
+      "path": "bridge/tests/test_media_fallback.py",
+      "blob_sha": "bcdabc2661a6633f25c30440f267f38c329c09f6",
+      "size": 13518
+    },
+    {
+      "path": "bridge/tests/test_offline_flow.py",
+      "blob_sha": "242d311fec6b48883997460908656e00258b097f",
+      "size": 7243
+    },
+    {
+      "path": "bridge/tests/test_race.py",
+      "blob_sha": "9f2d8bb1b26b2893b57d5f562fe409c693d8ef68",
+      "size": 12570
+    },
+    {
+      "path": "bridge/tests/test_scripts.py",
+      "blob_sha": "6c5d39b618cb72ea6004eb3a1c4aa3ed4f6c337f",
+      "size": 3332
+    },
+    {
+      "path": "bridge/tests/test_widget_flow.py",
+      "blob_sha": "b19fb22d5b9318dea93b759eccab813fd25a8b78",
+      "size": 4062
+    },
+    {
+      "path": "bridge/tests/test_window_flow.py",
+      "blob_sha": "72f913bced15025de6df37e5749fa0b82b2dce2b",
+      "size": 2127
+    },
+    {
+      "path": "bridge/tests/test_write_flow.py",
+      "blob_sha": "b96d68f80729c2dc86e3a10c39c352666aa7bdc3",
+      "size": 5171
+    },
+    {
+      "path": "bridge/tools.json",
+      "blob_sha": "b328bc518da798e537d23d140ad5b55b06f45086",
+      "size": 73810
+    },
+    {
+      "path": "bridge/web_task.py",
+      "blob_sha": "8fce9acc0914abb557bd6b89e6d0d1a3a44dcd25",
+      "size": 14158
+    },
+    {
+      "path": "bridge/winfocus.py",
+      "blob_sha": "90a30ba77dd19e1dbc4890951f63f98b39b12cfb",
+      "size": 7794
+    },
+    {
+      "path": "bridge/workflow_engine.py",
+      "blob_sha": "722218b2b495e43cae58b1e52b8926d5c52a3527",
+      "size": 40018
+    },
+    {
+      "path": "bridge/writer_proxy.py",
+      "blob_sha": "9d67f3c2b62720101a71171ca0bb2a78375676e0",
+      "size": 6139
+    },
+    {
+      "path": "config.local.example.js",
+      "blob_sha": "7c56156a7bce1f144e2e3d3a93a4efe5c37eb6ce",
+      "size": 859
+    },
+    {
+      "path": "css/jarvis.css",
+      "blob_sha": "905b11b46fac03ef45104c162e668e3937c024c6",
+      "size": 121790
+    },
+    {
+      "path": "docs/JEV-PLAN.md",
+      "blob_sha": "21ef8eeb67c2fd752f5a0fa07df72e5de4ce3e59",
+      "size": 39061
+    },
+    {
+      "path": "docs/TS-MIGRATION.md",
+      "blob_sha": "4b043d9026469a90525adadd033ea44d56db4618",
+      "size": 7687
+    },
+    {
+      "path": "docs/adr/0001-repo-zrodlem-konfiguracji-hermesa.md",
+      "blob_sha": "5a8c2099236472d50937fd3854bbe6e4eb18ee23",
+      "size": 1091
+    },
+    {
+      "path": "docs/adr/0002-docelowa-konfiguracja-hermesa.md",
+      "blob_sha": "6dc0f45c56af230805eae9a0abf5642ced9251e0",
+      "size": 2128
+    },
+    {
+      "path": "docs/adr/0003-klucz-hermesa-przez-most.md",
+      "blob_sha": "afcbe2e841748cee1ef179d4d0dbcb8c86501487",
+      "size": 1095
+    },
+    {
+      "path": "docs/adr/0004-zdarzenia-zadan-hermesa-na-pulpicie.md",
+      "blob_sha": "0522de772437a3e0788a48ae9911a27b379e55fe",
+      "size": 1082
+    },
+    {
+      "path": "docs/adr/0005-niepewny-jev-oddaje-hermesowi.md",
+      "blob_sha": "fceca0e4b5bf4a61d52b00fd8b81b2a4a7b3c0c6",
+      "size": 2034
+    },
+    {
+      "path": "docs/adr/0006-narzedzia-pulpitu-wprost-i-straznik-czynnosci.md",
+      "blob_sha": "b6a30c71e6e769caf9c288a5a1d8525565e868cd",
+      "size": 2277
+    },
+    {
+      "path": "docs/adr/0007-silnik-workflow-w-moscie.md",
+      "blob_sha": "ffd13db7831c17fc1fa4e83e9c100bb2a6e42bcf",
+      "size": 3288
+    },
+    {
+      "path": "docs/adr/0008-sejf-obsidian-w-kontekscie-hermesa.md",
+      "blob_sha": "4ebbb3ac05952a26f68ca9874b72602d46f8a8d8",
+      "size": 2491
+    },
+    {
+      "path": "docs/adr/0009-film-jako-modul-scenariuszy.md",
+      "blob_sha": "960d66d197d830ffe0ce866ac802791f5eb7cff1",
+      "size": 4142
+    },
+    {
+      "path": "docs/adr/README.md",
+      "blob_sha": "ba098263c3f38a613be55fb4cbeb2957babd195b",
+      "size": 1869
+    },
+    {
+      "path": "docs/archiwum/INWENTARYZACJA.md",
+      "blob_sha": "d8be123468b75c7cb06e54aa1c5a79fd4751bf6e",
+      "size": 13328
+    },
+    {
+      "path": "docs/archiwum/README.md",
+      "blob_sha": "6eb0b6328ecb76c3c94da44f28c6f3bdc17a0742",
+      "size": 766
+    },
+    {
+      "path": "docs/archiwum/ROADMAP.md",
+      "blob_sha": "d31d6bd61bfd909f625d5050fb0db1e41a20169c",
+      "size": 41242
+    },
+    {
+      "path": "docs/guide/agenci-jeva.md",
+      "blob_sha": "7b1a5bccd32df196b9361fc52973c42df4af5bf0",
+      "size": 14532
+    },
+    {
+      "path": "docs/guide/film.md",
+      "blob_sha": "636db77f27bd007d3f966246efe6eb2a27b96acd",
+      "size": 3912
+    },
+    {
+      "path": "docs/guide/hermes-i-most.md",
+      "blob_sha": "fae3c0ce67de26e454d572bf2ce209e164c10358",
+      "size": 8132
+    },
+    {
+      "path": "docs/guide/jev.md",
+      "blob_sha": "a7f095e93efa3488885ae6b65dbd0fbc6d1c6c00",
+      "size": 3590
+    },
+    {
+      "path": "docs/guide/workflow.md",
+      "blob_sha": "21ecaffde6aa26c2c1a564ecddac7e7f568cf197",
+      "size": 5037
+    },
+    {
+      "path": "docs/spec/01-decyzje.md",
+      "blob_sha": "53e0a7c5aaee5c5189ce4139a7361f6531ac8288",
+      "size": 5148
+    },
+    {
+      "path": "docs/spec/02-obiekty-akcje.md",
+      "blob_sha": "cfd4e113e73c1a9906a383351865ed7239f2fa99",
+      "size": 20000
+    },
+    {
+      "path": "docs/spec/03-nawigacja.md",
+      "blob_sha": "5f6a05413d6167add96ab180c9716d56a3ec39d0",
+      "size": 13408
+    },
+    {
+      "path": "docs/spec/04-okna.md",
+      "blob_sha": "ab845f979d1dbd741961ac81822503e64d8ea9e6",
+      "size": 9674
+    },
+    {
+      "path": "docs/spec/05-widgety.md",
+      "blob_sha": "5276500b443f5ac73464e31ac779d321b470ab84",
+      "size": 10177
+    },
+    {
+      "path": "docs/spec/06-notatki.md",
+      "blob_sha": "67ce0eefb123b40913675caddd85d46b5b6a5bdd",
+      "size": 6734
+    },
+    {
+      "path": "docs/spec/07-zadania.md",
+      "blob_sha": "4cfec4a0597761720ff997a3817eb2f374e3814d",
+      "size": 5504
+    },
+    {
+      "path": "docs/spec/08-aplikacje.md",
+      "blob_sha": "c72155d2550d220e7273ca688180e7ec514aba24",
+      "size": 9026
+    },
+    {
+      "path": "docs/spec/09-wyglad-stany.md",
+      "blob_sha": "c05e65dac1498235235c293893df282eb864159e",
+      "size": 11632
+    },
+    {
+      "path": "docs/spec/10-ustawienia.md",
+      "blob_sha": "ad851a11e0b3485d8c1e7dea6778e92e1e3bde29",
+      "size": 7439
+    },
+    {
+      "path": "docs/spec/11-agent.md",
+      "blob_sha": "938947a2d3725cc1a39a45c2e67f339fc8b3cfff",
+      "size": 7863
+    },
+    {
+      "path": "docs/spec/12-glos.md",
+      "blob_sha": "82881cc62ebc417e8bf6ad38c063bbfcef5b8b0f",
+      "size": 3996
+    },
+    {
+      "path": "docs/spec/13-bledy.md",
+      "blob_sha": "d148c0dd4b372d845f190fd3872fa58cf8c365d2",
+      "size": 6625
+    },
+    {
+      "path": "docs/spec/14-integracje.md",
+      "blob_sha": "7fc20f601f54933454be7d1e50b0b2044af8b03e",
+      "size": 4664
+    },
+    {
+      "path": "docs/spec/15-bezpieczenstwo.md",
+      "blob_sha": "fdaa57971c1c14fdfcaac13aefd1b0a4a20803ce",
+      "size": 5752
+    },
+    {
+      "path": "docs/spec/16-testy.md",
+      "blob_sha": "9bc22189f92333a75988b23273bddf5855a7b31a",
+      "size": 5227
+    },
+    {
+      "path": "docs/spec/17-wdrozenie.md",
+      "blob_sha": "754a212b113e4208e2b198a784eeddc299ca6834",
+      "size": 9629
+    },
+    {
+      "path": "docs/spec/18-handoff-pulpit.md",
+      "blob_sha": "15533f3c30b2e5cea7d8a4fa15617fa10bf6b3db",
+      "size": 18319
+    },
+    {
+      "path": "docs/spec/README.md",
+      "blob_sha": "118c2fe9b36427a3f467488f66ab3093fef7bdcf",
+      "size": 5597
+    },
+    {
+      "path": "docs/spec/katalog-nowych-polecen.md",
+      "blob_sha": "9c8ea4fc95d0c9f5995e4e4a16aeac2f9eb1bef5",
+      "size": 464
+    },
+    {
+      "path": "docs/spec/katalog-polecen.json",
+      "blob_sha": "11f3f9f216fea10c611674ca4ae6cc9c72e638ef",
+      "size": 126472
+    },
+    {
+      "path": "docs/spec/katalog-polecen.md",
+      "blob_sha": "902cb9ab720a04fb9c64f77b86600da6adee3367",
+      "size": 47431
+    },
+    {
+      "path": "docs/spec/katalog-ustawien.md",
+      "blob_sha": "fb4789c1e08f801d3fe342ba2f79069fcf73eab8",
+      "size": 4756
+    },
+    {
+      "path": "docs/spec/katalog-zdarzen.md",
+      "blob_sha": "96c45b6d0732c5115d12d05768fa4286d8ced218",
+      "size": 2737
+    },
+    {
+      "path": "docs/spec/nowe-polecenia.js",
+      "blob_sha": "a6e6c98a3d0796adbe89c900eebd5b7d33f96bbb",
+      "size": 2557
+    },
+    {
+      "path": "docs/spec/widget-przyklady.json",
+      "blob_sha": "05bb8e39354c6e21f3747d4929c131503779ed33",
+      "size": 2832
+    },
+    {
+      "path": "docs/spec/widget.schema.json",
+      "blob_sha": "5512af6e63eef77d17f50f0538374557e04eb6fb",
+      "size": 6167
+    },
+    {
+      "path": "hermes/HERMES.md",
+      "blob_sha": "3f234f702a885aa2727fef6dece586965dc071da",
+      "size": 8929
+    },
+    {
+      "path": "hermes/SOUL.md",
+      "blob_sha": "1065e6adf154f6f1bff1d0f37ca889f8c13b0e0d",
+      "size": 2238
+    },
+    {
+      "path": "hermes/apply_profile.py",
+      "blob_sha": "f0994ce673253bbdd68d8e1f567a5a0991bfacfd",
+      "size": 20850
+    },
+    {
+      "path": "hermes/evals/cases.yaml",
+      "blob_sha": "4fd27f676360b6d473a1829185135667dd56f900",
+      "size": 2627
+    },
+    {
+      "path": "hermes/evals/run_evals.py",
+      "blob_sha": "36c9a3a9d9736ef400c4271f79b103b2a1c31bb4",
+      "size": 4998
+    },
+    {
+      "path": "hermes/install-profile.ps1",
+      "blob_sha": "da252f31bbfd47b2e067967ebf9c8dfe9280aae4",
+      "size": 3716
+    },
+    {
+      "path": "hermes/plugins/jarvis-events/__init__.py",
+      "blob_sha": "5fb8763d8dd1d0316394376f12c09fed000068fd",
+      "size": 5960
+    },
+    {
+      "path": "hermes/plugins/jarvis-events/plugin.yaml",
+      "blob_sha": "95c8c59cc0f3234e6355122c9735624f0ce87481",
+      "size": 426
+    },
+    {
+      "path": "hermes/plugins/obsidian-brain/__init__.py",
+      "blob_sha": "ffa075172c0a63a04a7a60b7cc1404a2ff43fd24",
+      "size": 8423
+    },
+    {
+      "path": "hermes/plugins/obsidian-brain/plugin.yaml",
+      "blob_sha": "31f43cef70816c60c6489db4829663f8ab9e617b",
+      "size": 461
+    },
+    {
+      "path": "hermes/scripts/backup_state_db.py",
+      "blob_sha": "04e6eb7e71fee558dc4d7fa121d68792588efe3a",
+      "size": 1895
+    },
+    {
+      "path": "hermes/scripts/config_guard.py",
+      "blob_sha": "cd23c9328a3aff1b928f8476bb784b0020703114",
+      "size": 19039
+    },
+    {
+      "path": "hermes/scripts/guard_tools.py",
+      "blob_sha": "54d34d22be6b4a4fc485dc8ef98cfa89a9278af6",
+      "size": 2674
+    },
+    {
+      "path": "hermes/scripts/health_check.py",
+      "blob_sha": "e560ca508fc33707442295367a47056580572b3c",
+      "size": 1681
+    },
+    {
+      "path": "hermes/scripts/jarvis_daily.py",
+      "blob_sha": "e0ce1911cd724e666cced366317bc90c78dc186f",
+      "size": 4756
+    },
+    {
+      "path": "hermes/scripts/metrics_report.py",
+      "blob_sha": "4e47c1b5e19fb298ed883f403551b778c97bfec4",
+      "size": 7029
+    },
+    {
+      "path": "hermes/scripts/monitor_impulse_radar.py",
+      "blob_sha": "df3befd50cdfd9dae8ca39620a4ff7cc62bc99d2",
+      "size": 6400
+    },
+    {
+      "path": "hermes/scripts/obsidian-brain.py",
+      "blob_sha": "f27c8d43db6064863ccfa2a8ec557934ade3b5fa",
+      "size": 9464
+    },
+    {
+      "path": "hermes/scripts/obsidian-capture.py",
+      "blob_sha": "9d443c009a26cccd9774a7cf1aa8c0ba10a0dcb1",
+      "size": 28590
+    },
+    {
+      "path": "hermes/scripts/obsidian-context.py",
+      "blob_sha": "f5344f4f45baae221355e763b2c484df48167157",
+      "size": 24698
+    },
+    {
+      "path": "hermes/scripts/obsidian-inbox.py",
+      "blob_sha": "62dfe1095173474cf2f4e39aa4d9094f67df540d",
+      "size": 13107
+    },
+    {
+      "path": "hermes/scripts/obsidian_brain_wrapper.py",
+      "blob_sha": "322cd4811901af6f0d063317a0f63e394e6dbf53",
+      "size": 458
+    },
+    {
+      "path": "hermes/scripts/obsidian_daily_wrapper.py",
+      "blob_sha": "68115185596f995e88f57410c3e2a81ebc7597a2",
+      "size": 6101
+    },
+    {
+      "path": "hermes/scripts/obsidian_inbox_wrapper.py",
+      "blob_sha": "053106ceaeecbc4e1ffacd66c558f42512582beb",
+      "size": 1305
+    },
+    {
+      "path": "hermes/scripts/radar_24h_report.py",
+      "blob_sha": "d65560c9f6900ec361521c78219fb4d08f7e7684",
+      "size": 741
+    },
+    {
+      "path": "hermes/scripts/sync-memory-to-obsidian.py",
+      "blob_sha": "b663531fe935fef74d5f4a26c6a8770e1a0e4069",
+      "size": 4408
+    },
+    {
+      "path": "hermes/scripts/vault_health.py",
+      "blob_sha": "f676f071f50cffec8ae8d302fff0496ddff2ddc2",
+      "size": 9733
+    },
+    {
+      "path": "hermes/scripts/vault_stats.py",
+      "blob_sha": "9a81055e4bafa202d28a40917687c3cc861af8a8",
+      "size": 6857
+    },
+    {
+      "path": "hermes/skills/jarvis-os-catalog.md",
+      "blob_sha": "ee07e703f3b50833ec37aafb3e40e176f668e0a1",
+      "size": 2582
+    },
+    {
+      "path": "hermes/start-desktop-gateway.bat",
+      "blob_sha": "5c07461932cfb10f134af4baf9b29fc8b894d598",
+      "size": 186
+    },
+    {
+      "path": "hermes/tests/test_evals_judge.py",
+      "blob_sha": "7a0be35f7aad94ef4c10b07f3ce56a3860f0a8d1",
+      "size": 1685
+    },
+    {
+      "path": "hermes/tests/test_jarvis_events.py",
+      "blob_sha": "a9e1155f9104a67a9fd2065d1d6d12df92468f7d",
+      "size": 3812
+    },
+    {
+      "path": "hermes/tests/test_metrics_report.py",
+      "blob_sha": "08c6980414d4b15f9430669e8fa91f9f7e0e39cb",
+      "size": 2897
+    },
+    {
+      "path": "hermes/tests/test_obsidian_brain.py",
+      "blob_sha": "84b2492ae8a5e35b2ccd19370dc17d4b1932b697",
+      "size": 6735
+    },
+    {
+      "path": "hermes/tests/test_obsidian_scripts.py",
+      "blob_sha": "8bf41c90a4ff5a50c8454b4feea25975f386f965",
+      "size": 7838
+    },
+    {
+      "path": "index.html",
+      "blob_sha": "8c9b25b4932e07b9e7c1d9e1ae5bf3bf7cf3934e",
+      "size": 14310
+    },
+    {
+      "path": "integrations/computer/jarvis_clicker.py",
+      "blob_sha": "9cb7d92a97723579b51874d4593f399e26a00b51",
+      "size": 23225
+    },
+    {
+      "path": "integrations/computer/test_jarvis_clicker.py",
+      "blob_sha": "7b7e83c16b8919d8264cac4ff7f272a8d2093884",
+      "size": 16567
+    },
+    {
+      "path": "integrations/doctor.ps1",
+      "blob_sha": "85e6047ebcf2f1ef399075f0d9b3adf9bf50f9a3",
+      "size": 12612
+    },
+    {
+      "path": "integrations/patches/jev-voice-browser.patch",
+      "blob_sha": "02bc7b14595733f0f6ccde686189cc1c6d415a78",
+      "size": 615
+    },
+    {
+      "path": "integrations/patches/typesafe-computer-use.patch",
+      "blob_sha": "579e6e043b8fa9cc271c6651c209d73533ea5494",
+      "size": 784
+    },
+    {
+      "path": "integrations/set-key.ps1",
+      "blob_sha": "9ff7fb28234ad5d82dc922ad74e518d88705ac0e",
+      "size": 6208
+    },
+    {
+      "path": "integrations/setup.ps1",
+      "blob_sha": "4d95fab5bbdfeb008a5b00fb7736c0f752d08ba2",
+      "size": 5793
+    },
+    {
+      "path": "integrations/tests/e2e-jarvis.mjs",
+      "blob_sha": "7331e8a90739de191eccc21cecc5337983251460",
+      "size": 9869
+    },
+    {
+      "path": "integrations/tests/hermes-regression.py",
+      "blob_sha": "f3ae902fe39de3b6dd87d219eb426548c262d1da",
+      "size": 8486
+    },
+    {
+      "path": "integrations/tests/web-agent.test.mjs",
+      "blob_sha": "84f3eb550daf3d93f2296b8d23e34094b77e2258",
+      "size": 15514
+    },
+    {
+      "path": "integrations/web/agent.mjs",
+      "blob_sha": "ec6bc3ec0b34e2caa9c01d370ac4b2cedde21706",
+      "size": 34363
+    },
+    {
+      "path": "integrations/web/fake-jev.mjs",
+      "blob_sha": "184c890d4e9f44954aa49ce9a2fa49d19f57125a",
+      "size": 4556
+    },
+    {
+      "path": "js/agents.js",
+      "blob_sha": "6f1eb2c23aa5a4d6a08a130dd1b7a8e93004a212",
+      "size": 37426
+    },
+    {
+      "path": "js/ai.js",
+      "blob_sha": "fc9f074427bf5650159231ac0b088c085b57d734",
+      "size": 60590
+    },
+    {
+      "path": "js/apps-settings.js",
+      "blob_sha": "5f82907da0a1fd50766734a3b71d864508b9b8fc",
+      "size": 56121
+    },
+    {
+      "path": "js/apps.js",
+      "blob_sha": "f551d7325dbd6d694899be584c2ec80e8f2bd69e",
+      "size": 119752
+    },
+    {
+      "path": "js/bridge.js",
+      "blob_sha": "be8c889080843a3b35f103c456242f76113fb816",
+      "size": 14347
+    },
+    {
+      "path": "js/chart.js",
+      "blob_sha": "f8875f89c6958717d9835bd343c944b066793ff0",
+      "size": 3942
+    },
+    {
+      "path": "js/commands-data.js",
+      "blob_sha": "d29089a14c3f60baaaabcedeac2e51e19de8e236",
+      "size": 40388
+    },
+    {
+      "path": "js/commands-ext.js",
+      "blob_sha": "226d86abf177d4dadeeda798fa33bda19d6c2939",
+      "size": 45171
+    },
+    {
+      "path": "js/commands-w4.js",
+      "blob_sha": "1e62478ae14d7b718aaee6fba7322ea97ab742f2",
+      "size": 41660
+    },
+    {
+      "path": "js/commands.js",
+      "blob_sha": "75af81c0e9cc47151ba73ab9683b2b9219e92457",
+      "size": 99809
+    },
+    {
+      "path": "js/context.js",
+      "blob_sha": "e53852b3d9cc39b7234edbbc80cf99cfc03a72ba",
+      "size": 17521
+    },
+    {
+      "path": "js/core.js",
+      "blob_sha": "6409a811e6b0295462dc9c647b04f88655ade537",
+      "size": 50954
+    },
+    {
+      "path": "js/dash.js",
+      "blob_sha": "5cdef9b286b43761ff545e6ed005aab5b86e113e",
+      "size": 6903
+    },
+    {
+      "path": "js/events.js",
+      "blob_sha": "c220588ef6705ddaca26ec82ad25da14bb7dd016",
+      "size": 12308
+    },
+    {
+      "path": "js/film-scenarios.js",
+      "blob_sha": "98cedd0800ec926cfff2815d040ce54d9ac1d4da",
+      "size": 18246
+    },
+    {
+      "path": "js/global.d.ts",
+      "blob_sha": "0a95195baef422cd287f1a406c471f0cdac01897",
+      "size": 3625
+    },
+    {
+      "path": "js/hud.js",
+      "blob_sha": "d68abf6f2254fcc66bb79c7a218e19832128719c",
+      "size": 15292
+    },
+    {
+      "path": "js/jev-flow.js",
+      "blob_sha": "3c757e7d42d9ae2928767b6d873e13a67cd0f5b0",
+      "size": 17345
+    },
+    {
+      "path": "js/jev-policy.js",
+      "blob_sha": "b4b36aacaab1e05a54184e46b678690856e71745",
+      "size": 13295
+    },
+    {
+      "path": "js/judge.js",
+      "blob_sha": "c0fb19446f304f77cfe922acac6be93ec7b1ba53",
+      "size": 30112
+    },
+    {
+      "path": "js/main.js",
+      "blob_sha": "ad38a501388c960d787986950addfb0cc95c81e4",
+      "size": 98409
+    },
+    {
+      "path": "js/mcp-tool-schema.js",
+      "blob_sha": "aa4baf376761508084596ed202cfc981587b535b",
+      "size": 5394
+    },
+    {
+      "path": "js/process.js",
+      "blob_sha": "6fccf5dc138a12f66bf8463bbda965bf5e488884",
+      "size": 19733
+    },
+    {
+      "path": "js/registry.js",
+      "blob_sha": "f2e6a91e49ed8015ef9deb1e20b34835d4837d99",
+      "size": 32586
+    },
+    {
+      "path": "js/search.js",
+      "blob_sha": "c448f6cfc4127194b9febab0fcb7a356423471d5",
+      "size": 7162
+    },
+    {
+      "path": "js/store.js",
+      "blob_sha": "5f7cc05ef9ddde08da17bb224dc1b02448fde758",
+      "size": 3748
+    },
+    {
+      "path": "js/undo.js",
+      "blob_sha": "15dcfd586030e65dd4f4297df9007e926526929f",
+      "size": 7386
+    },
+    {
+      "path": "js/widget-spec.js",
+      "blob_sha": "8ed0790902615af72b930357d08316f735f8ee76",
+      "size": 32286
+    },
+    {
+      "path": "js/widgets.js",
+      "blob_sha": "ce4ef9c05264ef5c90d936e1ab0c00b258b96d66",
+      "size": 9134
+    },
+    {
+      "path": "js/workflow-cinema.js",
+      "blob_sha": "8f674e9d64769badbf502e11b57ac1795c289539",
+      "size": 95421
+    },
+    {
+      "path": "js/workflows.js",
+      "blob_sha": "bb5c6545daba70cb678e5cd74c670549b2aace9f",
+      "size": 26204
+    },
+    {
+      "path": "manifest.webmanifest",
+      "blob_sha": "48070297dfef3bdca0cecaca41740ccee7076de5",
+      "size": 374
+    },
+    {
+      "path": "package-lock.json",
+      "blob_sha": "29cf1e9936a2e40aad59741bf1fcaf566c2cfce3",
+      "size": 12513
+    },
+    {
+      "path": "package.json",
+      "blob_sha": "2f18037b24a438a019bb6a9d4ccaa75da3f2dc20",
+      "size": 1032
+    },
+    {
+      "path": "pytest.ini",
+      "blob_sha": "f722ba2a0e4628593b0bdb744dc5c2dc1b2fe669",
+      "size": 360
+    },
+    {
+      "path": "sw.js",
+      "blob_sha": "d2d1dee5df661b4783f899aa35de7f974b832adc",
+      "size": 2515
+    },
+    {
+      "path": "tests/e2e/smoke.js",
+      "blob_sha": "6a44ab7a300974a87342805286bff39a789df89a",
+      "size": 38480
+    },
+    {
+      "path": "tests/fixtures/api/binance-miniticker.json",
+      "blob_sha": "7e56b5d8221624b8636694652fabcd5ac517c370",
+      "size": 565
+    },
+    {
+      "path": "tests/fixtures/api/coingecko-markets.json",
+      "blob_sha": "dcc407c0e62b06e0e8916d892146ca228e031537",
+      "size": 15713
+    },
+    {
+      "path": "tests/fixtures/api/open-meteo-forecast.json",
+      "blob_sha": "03d5f1cbcc0d4f00361fdd889c550cd9af4ee879",
+      "size": 1724
+    },
+    {
+      "path": "tests/fixtures/api/open-meteo-geocode.json",
+      "blob_sha": "623e0c892a0ab7ab441f655edfa2a5a1b874a568",
+      "size": 402
+    },
+    {
+      "path": "tests/fixtures/corpus-nowe.js",
+      "blob_sha": "2a4ed28745f86605c36098993e4b3a28d1c0cd1b",
+      "size": 543
+    },
+    {
+      "path": "tests/fixtures/corpus.js",
+      "blob_sha": "b26e569b01eb921d3d5ef1bd78bf0584f210d14b",
+      "size": 25079
+    },
+    {
+      "path": "tests/fixtures/utterances.js",
+      "blob_sha": "21e07339736ead5ef8a120c4efa91a5e2abf9ff8",
+      "size": 5383
+    },
+    {
+      "path": "tests/harness.js",
+      "blob_sha": "20bd2f81dfadf2bce5e16b8b15b4bc3275b51809",
+      "size": 7709
+    },
+    {
+      "path": "tests/jev-probe.js",
+      "blob_sha": "cad0fd8efae0c44a61bd627e0aeeb30ddc725705",
+      "size": 11290
+    },
+    {
+      "path": "tests/jevmock.js",
+      "blob_sha": "a48377fb563112b7e09b1e14f0c24b70f5d22c7b",
+      "size": 4013
+    },
+    {
+      "path": "tests/unit/agents.test.js",
+      "blob_sha": "75ee9e65ba6c510b25db1dfe126381f2199d5f1a",
+      "size": 28563
+    },
+    {
+      "path": "tests/unit/api-fixtures.test.js",
+      "blob_sha": "7dd9ce23f141a80a9a22abf30728862884c5e349",
+      "size": 3964
+    },
+    {
+      "path": "tests/unit/audit-luki.test.js",
+      "blob_sha": "4711e9e454fb057bf63660aecd955167fa01bcec",
+      "size": 3768
+    },
+    {
+      "path": "tests/unit/brain.test.js",
+      "blob_sha": "7874773be7324f8dc9c0e5445d84d5b658d1e6ac",
+      "size": 24212
+    },
+    {
+      "path": "tests/unit/bridge.test.js",
+      "blob_sha": "229e7d18a036d0e11b97ee0aee93e309506f4a22",
+      "size": 12099
+    },
+    {
+      "path": "tests/unit/corpus.test.js",
+      "blob_sha": "d5bca7072dc1c37f99ce1c2d969badb03ae6dd29",
+      "size": 4501
+    },
+    {
+      "path": "tests/unit/csp.test.js",
+      "blob_sha": "739b666ee645456c86e762a70206f12cc7e1111d",
+      "size": 2908
+    },
+    {
+      "path": "tests/unit/film-scenarios.test.js",
+      "blob_sha": "d2d09c2f85e3e4cf5a737d7ecb441bf9e4c34396",
+      "size": 15295
+    },
+    {
+      "path": "tests/unit/flow.test.js",
+      "blob_sha": "de9725d75648647b20baf40fd0e2a894cfd05912",
+      "size": 10259
+    },
+    {
+      "path": "tests/unit/jev2.test.js",
+      "blob_sha": "179c6c478884f30ae5e8bf8745b851daf6d9b2a2",
+      "size": 13133
+    },
+    {
+      "path": "tests/unit/jev3.test.js",
+      "blob_sha": "23021779479b00e711dddda57396e14cf82459cc",
+      "size": 7306
+    },
+    {
+      "path": "tests/unit/judge.test.js",
+      "blob_sha": "3fd54a50d0a95891b77a3b0b1d0bf55d180e3539",
+      "size": 6788
+    },
+    {
+      "path": "tests/unit/live-fixes.test.js",
+      "blob_sha": "21f579de6852401aa7bf5fa8f77fa31a42fa26a1",
+      "size": 12896
+    },
+    {
+      "path": "tests/unit/loop.test.js",
+      "blob_sha": "743d8c05aac7b65315707848bf5e5173f04e3cc6",
+      "size": 8052
+    },
+    {
+      "path": "tests/unit/mcp-schema.test.js",
+      "blob_sha": "87d6b7154285fbf21349ca2fef4321fed41802a6",
+      "size": 4390
+    },
+    {
+      "path": "tests/unit/nlp.test.js",
+      "blob_sha": "b82f1188321e68abe753a4c21b37718bd1228e8c",
+      "size": 2629
+    },
+    {
+      "path": "tests/unit/policy.test.js",
+      "blob_sha": "a56f5db097742975fedc47c882f4b6a002da7a1b",
+      "size": 10247
+    },
+    {
+      "path": "tests/unit/registry.test.js",
+      "blob_sha": "74e001f841aa24fe587852970277113a8b02d1ca",
+      "size": 8427
+    },
+    {
+      "path": "tests/unit/routing.test.js",
+      "blob_sha": "f5f974a272a81e6c61693daf30d34deed3869b48",
+      "size": 7202
+    },
+    {
+      "path": "tests/unit/spec.test.js",
+      "blob_sha": "a8fcc5eb483163e28250fd3c5ca63ccdda8c3995",
+      "size": 8279
+    },
+    {
+      "path": "tests/unit/system-info.test.js",
+      "blob_sha": "e9a5d571fbfe694f9df88148e2a413437cf90eee",
+      "size": 3075
+    },
+    {
+      "path": "tests/unit/w1.test.js",
+      "blob_sha": "599b261106fe808ec4fd262f48b02be567d4cdc5",
+      "size": 11969
+    },
+    {
+      "path": "tests/unit/w2.test.js",
+      "blob_sha": "c85381eb2e9938fe5b1b75105736595f6631cf7e",
+      "size": 10843
+    },
+    {
+      "path": "tests/unit/w3.test.js",
+      "blob_sha": "e75f8b6a461a2bf5d5cdde7bf29f7f72430f2804",
+      "size": 16764
+    },
+    {
+      "path": "tests/unit/w4.test.js",
+      "blob_sha": "e8233ab9411be4a0158e6e8392aa1f9ff2f506a9",
+      "size": 17635
+    },
+    {
+      "path": "tests/unit/w5.test.js",
+      "blob_sha": "efa8ea80ff6b2ab4acf858a27b8d3eb2c0d39ee4",
+      "size": 5857
+    },
+    {
+      "path": "tests/unit/workflow-cinema.test.js",
+      "blob_sha": "a36364cca7cd07d6992ce18d6bf8805a39f44eea",
+      "size": 11626
+    },
+    {
+      "path": "tests/unit/workflows.test.js",
+      "blob_sha": "c1850c048b3208817a320ddd842d846b24ec96fa",
+      "size": 12601
+    },
+    {
+      "path": "tools/gen-spec.js",
+      "blob_sha": "a2e6cd4d5073a1b837661f9d3463a99fdf38d8fb",
+      "size": 9677
+    },
+    {
+      "path": "tools/promote.js",
+      "blob_sha": "f6927119dded8929a3847e6a2194a43d7c2152f2",
+      "size": 2761
+    },
+    {
+      "path": "tools/schema-lite.js",
+      "blob_sha": "0a61cbd8d4a5a8d58388a81b97cd1777bd197947",
+      "size": 3573
+    },
+    {
+      "path": "tsconfig.json",
+      "blob_sha": "6f99c3465d86d19186a9991509a9359c4ad51491",
+      "size": 849
+    },
+    {
+      "path": "workflows/od-pomyslu-do-projektu.yaml",
+      "blob_sha": "9f8da99a21c5f1c1e3649ade3706f838565573e5",
+      "size": 8185
+    },
+    {
+      "path": "workflows/schema.json",
+      "blob_sha": "0a58db6a4f561c1f84829ffa282e19f50cecae39",
+      "size": 4884
+    }
+  ]
+}
