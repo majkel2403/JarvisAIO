@@ -17,7 +17,7 @@ Każda faza 1–7 otrzymuje osobną zatwierdzoną specyfikację, plan, RED/GREEN
 
 Wymagane: spójne dokumenty master; zielone walidatory i testy; każdy krytyczny moduł ze ścieżką/SHA/status; konflikty z jawnymi decyzjami; brak publikowanych sekretów; aktualny lokalny manifest i odzyskiwalne niezapisane zmiany albo formalnie zatwierdzona zmiana bramki. Sama adnotacja unverified nie jest takim zatwierdzeniem.
 
-Można przygotować projekt specyfikacji lifecycle bez dostępu live. Nie rozpoczynamy implementacji ani kopiowania kodu/danych, dopóki bramka nie przejdzie. Faza 0 pozostaje partial/blocked w zakresie lokalnego baseline. Jev optional i brak nowego UI nie blokują zaprojektowania Core.
+Można przygotować projekt specyfikacji lifecycle bez dostępu live. Lokalna bramka została spełniona dowodem E-10: manifest i odtworzenie kodu/Git. Nie rozpoczynamy implementacji ani migracji kodu/danych bez zatwierdzonej specyfikacji i planu fazy 1. Ignorowane dane runtime potrzebują osobnej bramki fazy 3. Jev optional i brak nowego UI nie blokują zaprojektowania Core.
 
 ## Obserwacja i wycofanie
 

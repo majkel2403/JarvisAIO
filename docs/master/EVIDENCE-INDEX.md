@@ -12,7 +12,7 @@ Data inspekcji: 2026-10-10. Repo source: majkel2403/Jarvis-. Baseline code SHA: 
 - E-05: [GREEN runtime fixture](https://github.com/majkel2403/JarvisAIO/actions/runs/38073886758): node --test 7 pass, 0 fail; brak validate-docs nadal powodował czerwony workflow.
 - E-06: [stan obecny](01-CURRENT-STATE.md) zawiera odnośniki do kodu i rozróżnia inspekcję kodu od działania.
 - E-07: runtime-unification dostępny na dokumentacyjnej gałęzi starego repo, SHA e4ae04e07a4c6a02b024434ae22d2d723cf3309a; nie jest częścią starego main baseline.
-- E-08: lokalne HEAD/worktree/dirty files, recovery snapshots, Hermes/Telegram/Windows live: unverified, nie zbadano.
+- E-08: początkowy zakres GitHub-only nie obejmował local/live; lokalny baseline/recovery został później zweryfikowany w E-10. Hermes health/Telegram live nadal unverified.
 - E-09: końcowe wyniki i linki do runów są utrzymywane w [statusie](09-PROJECT-STATUS.md).
 
 ## Bezpieczeństwo publikacji
@@ -53,3 +53,17 @@ Regresje: repo-read-only-preserves-index-bytes; repo-cli-rejects-unignored-audit
 Minor review zostały uwzględnione w wymaganym zakresie: committed diff check, aktualizacja PR i kompletny zapis dowodów. Nie ma odłożonych usterek kodu z review. Weryfikacja testów nie zastępuje niedostępnego lokalnego baseline.
 
 Manifest publicznego drzewa JarvisAIO po poprawkach: 34 pliki, truncated=false, 0 plików artifacts/audit-private w Git. Main JarvisAIO nadal 2675baa009460d95c807efdcafa1e515df07f6f4; main Jarvis- nadal 9713065f4489a168f3b0cf041ee8fd9c9f84eb94 (sprawdzono przez GitHub API).
+
+## E-10 — lokalny baseline i scoped recovery, 2026-10-10
+
+Upoważnienie: punkt 1 użytkownika, Remote Desktop Commander; stare repo read-only. Audited scripts pochodzą z JarvisAIO SHA 7b0a70b2e848df82e90d134411620b0d422d0991; Node v24.13.0, Git 2.53.0.windows.1, Windows PowerShell 5.1.26100.9549.
+Repo CLI exit 0: captured_at 18:38:25 UTC, HEAD fb74cb16ac65e90b6bb847d28e7e86c97b5c7ede, auto/nowa-petla-2026-10-09, 10 modified/9 untracked, 244 index entries. Upstream absent: relation unverified. Explicit HEAD comparison: 8 ahead/0 behind cached origin/main 9713065f4489a168f3b0cf041ee8fd9c9f84eb94; no fetch.
+Trzy worktrees: główny HEAD powyżej; hermes cleanup ec89a237102b3671eb8b73ee46726d7dbb7e615c; migration spec e4ae04e07a4c6a02b024434ae22d2d723cf3309a. Dodatkowe worktrees clean.
+
+Private recovery captured 18:39:00 UTC; final checks 18:42:12 UTC. Bundle SHA256 331a401fac388e72408bbb2c83a9bbf9b1d2ef294ea34ce5549dd926457b2ba7; 2263223 bytes. Pliki snapshotów: 253/236/245. Backup/restore verification exit 0.
+Metoda: git --no-optional-locks status --porcelain=v1 -z --untracked-files=all, ls-files --cached --others --exclude-standard -z, HEAD/index SHA256, snapshot kopii regular files i markerów deletion. git bundle create --all do prywatnej kopii, bundle verify oraz porównanie all named refs z list-heads. git clone --no-checkout bundle do trzech osobnych restore copies; przywrócono HEAD/index i snapshot plików. Porównano wszystkie file hashes oraz pełny status -z. Każdy indeksowy blob object dostępny w restore.
+Źródło po kopii: HEAD/index/status/refs/content hashes i kompletny path inventory zgodne. Nie stosowano reset/clean/stash ani checkout starego repo. Brak links/junctions/special entries; brak active merge/rebase/sequencer. Pierwsza dodatkowa kontrola odrzuciła REBASE_HEAD jako possible operation; zbadano brak rebase dirs i zachowano cztery dostępne REBASE_HEAD/ORIG_HEAD metadata files z hashami oraz commit object verification. Nie ukryto tej nieudanej kontroli.
+
+Runtime CLI exit 0, captured 18:38:30 UTC: sockets 4000/8651/8642 listening, 8643 absent; 7 scheduled task metadata records (3 Hermes/4 Jarvis). gateway health/profile identity, Hermes cron, Telegram, Obsidian i task correctness unverified. Nie zmieniono konfiguracji i usług.
+Granica: reachable refs + indeksy + tracked/nonignored-untracked files oraz zachowane pseudorefs. Ignorowane dane runtime, pełny vault, unreachable Git objects, reflog/cała konfiguracja Git i odzyskiwanie urządzenia poza zakresem. Nie jest to gotowy data-migration backup; faza 3 musi zrobić własny snapshot/test odczytu przed zapisem.
+Prywatne dowody znajdują się na komputerze w katalogu backupu o suffixie 20261010-203721, pliki verification.json, metadata-proof.json, refs.txt, snapshot-*/state.json/files.json/repo.json i restore-test copies. Żadnych raw paths, plików lub historii backupu nie opublikowano. Wyniki końcowego CI dla tego checkpointu dokumentów i full SHA w PR #1.

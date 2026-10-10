@@ -10,7 +10,7 @@
 | node tools/audit/validate-public-data.mjs | heurystyczny skan tracked text, prywatne snapshoty i typowe credential patterns | kompletna historia, nietypowe sekrety, binaria |
 | git diff --check | whitespace errors w runner checkout | poprawność logiki |
 
-CI: Linux i Windows z Node 22. Fixture runtime działa w pwsh; brak dostępu live daje unverified. CLI Windows PowerShell 5.1 pozostaje unverified. Negative fixtures walidatora muszą dać nonzero exit; poprawne dokumenty exit 0.
+CI: Linux i Windows z Node 22. Fixture runtime działa w pwsh; brak dostępu live daje unverified. CLI Windows PowerShell 5.1 uruchomiono lokalnie: exit 0, E-10; health/profile identity nadal unverified. Negative fixtures walidatora muszą dać nonzero exit; poprawne dokumenty exit 0.
 
 ## Baseline starego kodu
 
@@ -24,7 +24,7 @@ Każdy wynik: command, captured_at, repository, full head_sha, runner/environmen
 
 ## Formalna bramka fazy 0
 
-Pełny lokalny manifest repo/worktree; odzyskiwalne źródła niezacommitowanych zmian; wszystkie krytyczne moduły z ID/ścieżką; konflikty ze statusem; aktualny baseline i review; brak prywatnych snapshotów w Git. Runtime niedostępny oznaczony unverified. Brak lokalnego manifestu/snapshotów nadal blokuje formalne complete zgodnie ze specyfikacją.
+Pełny lokalny manifest repo/worktree; odzyskiwalne źródła niezacommitowanych zmian; wszystkie krytyczne moduły z ID/ścieżką; konflikty ze statusem; aktualny baseline i review; brak prywatnych snapshotów w Git. Runtime niedostępny oznaczony unverified. Lokalny manifest/snapshoty i test odtworzenia kodu/Git wykonano w E-10. Bramka fundamentu spełniona; nie oznacza operacyjnej akceptacji ani backupu ignorowanych danych runtime.
 
 ## Testy fazy 1 i dalszych
 

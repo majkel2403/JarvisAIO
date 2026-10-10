@@ -8,7 +8,7 @@ Hierarchia faktów: świeży test/inspekcja > kod w pełnym SHA > historyczny op
 | D-002 | [core.js](https://github.com/majkel2403/Jarvis-/blob/9713065f4489a168f3b0cf041ee8fd9c9f84eb94/js/core.js), [spec fundamentu](../superpowers/specs/2026-10-10-jarvis-migration-foundation-design.md) | Core owns durable task state; UI owns view state. | resolved-with-evidence: granica projektu, wdrożenie planned |
 | D-003 | [ADR 0005](https://github.com/majkel2403/Jarvis-/blob/9713065f4489a168f3b0cf041ee8fd9c9f84eb94/docs/adr/0005-niepewny-jev-oddaje-hermesowi.md), spec fundamentu | Jev optional, fallback Hermes; brak Jeva nie blokuje MVP. | resolved-with-evidence: docelowa decyzja |
 | D-004 | [TS-MIGRATION](https://github.com/majkel2403/Jarvis-/blob/9713065f4489a168f3b0cf041ee8fd9c9f84eb94/docs/TS-MIGRATION.md), plan fazy 0 | Stary UI zostaje JSDoc; nie wybieramy frameworka ani bazy nowego Core. | resolved-with-evidence |
-| D-005 | spec sekcja 10, plan Acceptance Gate | Lokalny manifest i zachowanie niezapisanych zmian nadal wymagane do formalnego complete. unverified nie zastępuje dowodu. | open |
+| D-005 | spec sekcja 10, plan Acceptance Gate | Lokalny manifest i test odtworzenia trzech worktree: E-10. unverified nie zastępuje dowodu; ignorowane dane runtime poza kopią. | resolved-with-evidence |
 | D-006 | status „do przeglądu” w spec/plan, instrukcja wykonania użytkownika 2026-10-10 | Bieżące polecenie upoważnia fazę 0; brak zgody na implementację Core, merge lub zmianę starego repo. | resolved-with-evidence |
 
 ## Rulings wykonawcy
@@ -27,3 +27,10 @@ CLI outputs są dopuszczone tylko wewnątrz ignorowanego artifacts/audit-private
 Ruling: nie kasujemy istniejącej implementacji Task 1 tylko po to, by symulować brak eksportu. Wykonano rzeczywiste regresje RED→GREEN; oryginalny RED poprzedniej sesji pozostaje unverified. Koszt: nie odtwarzamy historycznego TDD, ale dowodzimy aktualne behavior.
 
 Minor review uwzględniono w wymaganym zakresie PR/status/evidence oraz committed diff check. Brak odłożonych usterek review. Rulings nie rozszerzają zgody na Core, merge lub stare repo.
+
+## Lokalna bramka — 2026-10-10
+
+D-005 resolved-with-evidence po osobnym poleceniu punktu 1 i wskazaniu Remote Desktop Commander. Ruling: nowe upoważnienie pozwala na odczyt starego repo i kopię poza nim; nie zmienia zakazu edycji źródła, usług, merge ani implementacji Core. Koszt: prywatny bundle i snapshot zajmują miejsce lokalnie, nie obejmują ignorowanych danych runtime ani unreachable objects.
+Ruling: CLI uruchomiono w nowym prywatnym audit-context z własnym git init/.gitignore, ponieważ lokalny JarvisAIO stoi na main bez ignorowanej ścieżki. Nie zmieniono jego main ani starego worktree. Surowe raporty tylko ignored artifacts/audit-private; recovery copy poza repo. Zamiast reset/clean/stash wykorzystano odrębne restore-test copies.
+Review ujawnił potrzebę kontroli pełnych inventory, junctions i operation metadata. Kontrole wykonane. REBASE_HEAD bez rebase directories zachowano wraz z ORIG_HEAD i sprawdzono możliwość odczytu obiektów; nie usuwano pozostałości.
+D-001 nadal open: gniazdo 8642 nasłuchuje, ale owner identity/health unverified. Faza 0 oznacza komplet fundamentu, nie operacyjną akceptację Hermesa ani zgodę na migrację.

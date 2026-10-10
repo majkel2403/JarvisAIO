@@ -8,7 +8,7 @@ evidence_ref: [Indeks dowodów](EVIDENCE-INDEX.md)
 
 ## Zakres dowodu
 
-GitHub API potwierdziło zdalny main i pełne drzewo (truncated=false). Ten SHA nie jest lokalnym fb74cb1 z historycznej specyfikacji. Lokalne HEAD, branch, worktree, relacja z origin, niezapisane zmiany i ich odzyskiwalne snapshoty: **unverified**, brak dostępu w dozwolonym zakresie. Historyczne „19 zmian” nie jest aktualnym pomiarem.
+GitHub API potwierdziło zdalny main i pełne drzewo (truncated=false). Ten SHA nie jest lokalnym fb74cb1 z historycznej specyfikacji. Późniejszy lokalny pomiar 2026-10-10 18:38–18:42 UTC: HEAD fb74cb16ac65e90b6bb847d28e7e86c97b5c7ede, branch auto/nowa-petla-2026-10-09, 10 modified + 9 untracked, trzy worktrees. Brak upstream; 8 ahead/0 behind cached origin/main 9713065f4489a168f3b0cf041ee8fd9c9f84eb94, bez fetch. Prywatne snapshoty i odtworzenie kodu/Git verified; ignorowane runtime data poza zakresem. Pełna metoda: E-10 w indeksie.
 
 | Teza | Źródło w zamrożonym commicie | Status |
 | --- | --- | --- |
@@ -22,7 +22,7 @@ GitHub API potwierdziło zdalny main i pełne drzewo (truncated=false). Ten SHA 
 
 ## Runtime i testy
 
-Hermes, Windows, Telegram, gateway identity/health, porty, autostart i Hermes cron: **unverified**. Fixture runtime na runnerze nie jest inspekcją komputera użytkownika. Otwarte gniazdo nie potwierdza tożsamości procesu.
+Odczytowy inspector uruchomiony na lokalnym Windows PowerShell 5.1: exit 0. Porty 4000/8651/8642 listening; 8643 absent. Scheduled task metadata odczytane, poprawność działania autostartu unverified. Hermes/Telegram gateway identity/health i Hermes cron: **unverified**. Fixture runtime na runnerze nie jest inspekcją komputera użytkownika. Otwarte gniazdo nie potwierdza tożsamości procesu.
 
 Testy fazy 0 wykonuje GitHub Actions na izolowanych runnerach Linux i Windows. Pierwsze 2 testy istniejącego PR przeszły; dodane regresje najpierw wykazały błędy local remote i Unicode CLI, następnie 6/6 przeszło. Task 2: 7/7 z fixture przeszło. To były historyczne etapy RED/GREEN. Po końcowych poprawkach faza 0 ma 34/34 testów GREEN na obu runnerach i trzy zielone walidatory; źródła i ograniczenia w aktualnym statusie. Końcowy checkpoint: [status](09-PROJECT-STATUS.md).
 

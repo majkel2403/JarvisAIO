@@ -52,7 +52,7 @@ flowchart TD
 
 | Faza | Zakres | Status |
 | --- | --- | --- |
-| 0 | Audyt starego Jarvisa, źródła prawdy, dokumentacja i macierz migracji | **partial / formal acceptance blocked** |
+| 0 | Audyt starego Jarvisa, źródła prawdy, dokumentacja i macierz migracji | **Fundament i audyt ukończone; live unverified** |
 | 1 | Core: cykl życia zadania, trwały event log, wznowienie | Planowane |
 | 2 | Bridge, adaptery i narzędzia | Planowane |
 | 3 | Pamięć, dane i kontekst | Planowane |
@@ -82,4 +82,4 @@ Każda kolejna faza wymaga własnej zatwierdzonej specyfikacji, planu, testów i
 - Stary [Jarvis-](https://github.com/majkel2403/Jarvis-) pozostaje bez zmian. Migracja będzie oparta na konkretnych zdolnościach, testach porównawczych i możliwości cofnięcia.
 - Kod i testy fazy 0 są rozwijane w gałęzi `feat/phase0-audit`; zmiany nie są automatycznie scalane do `main`.
 
-**Faza 0: partial / formal acceptance blocked.** Dokumentacja i narzędzia są rozwijane oraz weryfikowane przez Actions. Lokalny baseline i odzyskiwalne niezapisane zmiany są unverified. Szczegóły i wyniki: [status](docs/master/09-PROJECT-STATUS.md). Można projektować osobną specyfikację Core; implementacja fazy 1 czeka na bramkę.
+**Faza 0: fundament i audyt ukończone.** Lokalny baseline i odtworzenie kodu/Git dla trzech worktree zweryfikowano; live capabilities pozostają unverified. Szczegóły: [status](docs/master/09-PROJECT-STATUS.md). Specyfikacja i plan Core są draft; implementacja fazy 1 wymaga ich zatwierdzenia.

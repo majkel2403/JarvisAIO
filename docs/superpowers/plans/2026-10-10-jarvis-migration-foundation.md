@@ -72,7 +72,7 @@
 - [x] **Step 2: RED test `repo-redacts-secrets`.** Remote URL `https://alice:FAKE_SECRET@example.org/org/repo` i plik `.env`. Asercja: `assert.equal(JSON.stringify(report).includes("FAKE_SECRET"),false)`; nie czytaj treści sekretu.
 - [x] **Step 3: Run `node --test tests/audit/repo-manifest.test.mjs`.** Expected FAIL: eksport nie istnieje.
 - [x] **Step 4: Implement Git odczyt: `git rev-parse`, `git status --porcelain=v1 -z --untracked-files=all`, `git worktree list --porcelain` i zredagowane remote. Rozróżniaj rename/modified/untracked, brak origin i brak dostępu. Nie zapisuj pełnych ścieżek w publicznych wynikach.
-- [ ] **Step 5: Run test GREEN.** Uruchom CLI na starym repo i porównaj `git status --porcelain` przed/po — zero zmian; pełny JSON tylko w ignorowanym katalogu.
+- [x] **Step 5: Run test GREEN.** Uruchom CLI na starym repo i porównaj `git status --porcelain` przed/po — zero zmian; pełny JSON tylko w ignorowanym katalogu.
 - [x] **Step 6: `git diff --check`, commit `git add .gitignore tools/audit/repo-manifest.mjs tests/audit/repo-manifest.test.mjs`; `git commit -m "feat(audit): add safe Git inventory"`.
 
 ### Task 2: Raport lokalnego runtime bez zmian w usługach
@@ -90,7 +90,7 @@
 - [x] **Step 1: RED test `runtime-unknown`:** w fikcyjnym raporcie port niedostępny ma `assert.equal(report.ports[0].status,"unverified")`. Sprawdź brak pełnego `CommandLine` i sekretów.
 - [x] **Step 2: `node --test tests/audit/runtime-inspect.test.mjs` → FAIL (brak skryptu).
 - [x] **Step 3: Implement `Get-NetTCPConnection` dla 4000,8651,8642,8643; `Get-ScheduledTask` i tylko metadane gateway. Odmowa dostępu = `unverified`. Nie zatrzymuj usług, nie wypisuj `.env` ani argumentów procesów.
-- [ ] **Step 4: Test GREEN; wykonaj prywatny raport live, ręcznie potwierdź brak zmian w uruchomionych usługach.
+- [x] **Step 4: Test GREEN; wykonaj prywatny raport live, ręcznie potwierdź brak zmian w uruchomionych usługach.
 - [x] **Step 5: `git diff --check` i commit trzech plików Task 2.
 
 ### Task 3: Źródła prawdy, stan obecny i rozbieżności
@@ -105,7 +105,7 @@
 
 - [x] **Step 1: RED test `decision-ledger-sources`:** znajdź oba źródła kontraktu 8642/8643 i status `open|resolved-with-evidence`; `current-state-has-sha` sprawdza datę i pełne SHA.
 - [x] **Step 2: `node --test tests/docs/current-state.test.mjs` → FAIL.
-- [ ] **Step 3: Sprawdź zawartość starych ADR-ów i realne implementacje; nie kopiuj niezweryfikowanych opisów. Rozróżnij `verified`, `unverified`, `historical`. Aktualną liczbę niezapisanych zmian pobierz z manifestu.
+- [x] **Step 3: Sprawdź zawartość starych ADR-ów i realne implementacje; nie kopiuj niezweryfikowanych opisów. Rozróżnij `verified`, `unverified`, `historical`. Aktualną liczbę niezapisanych zmian pobierz z manifestu.
 - [x] **Step 4: Zapisz trzy dokumenty z redakcją prywatnych danych i odnośnikami do konkretnych źródeł/commitów.
 - [x] **Step 5: Test GREEN, ręczny review dowodów, `git diff --check` i commit czterech plików.
 
@@ -194,3 +194,8 @@ Wykonano cały dostępny zakres siedmiu zadań. Checkboxes potwierdzają wykonan
 Final verification code SHA: 804de815012ba3d5488dad42bbd3268bacfddf40.
 [Actions](https://github.com/majkel2403/JarvisAIO/actions/runs/38074893649): 6/6 jobs success; Phase 0 34/34 na Linux i Windows, walidatory exit 0; pinned legacy baseline Node 369, Python 32, smoke/types/generated catalogs pass; web-agent 12 skipped, Python 3 deselected.
 Independent final review wykonany; Important fixes RED 26/34 → GREEN 34/34. Formal Phase 0 remains partial/blocked on local manifest/recovery evidence. Nie rozpoczęto fazy 1 i nie scalono PR.
+
+## Local continuation record — 2026-10-10
+
+Późniejsze polecenie punktu 1 użytkownika upoważniło Remote Desktop Commander do read-only audit i backupu poza źródłem. Wcześniejszy GitHub-only blokował trzy lokalne kroki; wykonano je teraz. Świeży manifest, 19 zmian, 3 worktrees, runtime inspector PS 5.1 exit 0, verified recovery copies i niezmienione źródło: [E-10](../../master/EVIDENCE-INDEX.md). Pseudoref metadata zachowano po dodatkowej kontroli. Pełny data/runtime backup i live Hermes health nadal poza dowodem; niczego nie oznaczono works.
+Fundament fazy 0 kompletny w zdefiniowanym zakresie, bez Core implementation. Draft phase 1 spec/plan wymagają zatwierdzenia. Nie wykonano merge ani migracji wybranych projektów.
