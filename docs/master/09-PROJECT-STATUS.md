@@ -66,3 +66,5 @@ Punkt 1 upoważniony przez użytkownika: read-only lokalna inspekcja i prywatny 
 Trzy worktree odtworzono poza źródłem: 253/236/245 wpisów. Hashy plików, indeksów, HEAD, status -z, pełnych path inventory i refs źródła nie zmieniono. Bundle verify i odczyt wszystkich blob objects indeksów przeszły. Pseudoref metadata zachowane; brak aktywnego merge/rebase/sequencer. Ignorowane dane runtime i unreachable Git objects wyłączone jawnie.
 Porty 4000/8651/8642 nasłuchują, 8643 nie nasłuchuje. To dowód gniazd, nie tożsamości/health Hermesa. Nie restartowano i nie zmieniono usług.
 Nowy checkpoint dokumentacji weryfikuje Actions; final SHA/run i wyniki są w PR. Prywatne backupy nie weszły do Git.
+
+Końcowy review lokalnego checkpointu c037e17c6c23c739c99db60a37c6ea1217f706d0: no Critical/Important. Drobne stare sformułowania o niedostępnym lokalnym baseline oznaczono historycznie i zastąpiono E-10. Reviewer ocenił dokumenty i gate accuracy; prywatne restore artifacts zweryfikował wykonawca na urządzeniu, nie Actions.

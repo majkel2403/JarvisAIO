@@ -13,7 +13,7 @@ Hierarchia faktów: świeży test/inspekcja > kod w pełnym SHA > historyczny op
 
 ## Rulings wykonawcy
 
-- GitHub-only: zamiast lokalnego worktree używamy izolowanej gałęzi feat/phase0-audit i runnerów; lokalna inspekcja pozostaje unverified. Koszt: formalna bramka pozostaje częściowa.
+- Historyczny GitHub-only ruling, zastąpiony w zakresie lokalnym przez E-10: zamiast lokalnego worktree używamy izolowanej gałęzi feat/phase0-audit i runnerów; lokalna inspekcja pozostaje unverified. Koszt: formalna bramka pozostaje częściowa.
 - Commity testów RED są konieczne, aby Actions wykonał kod; wymóg „push tylko po green” zastępujemy oznaczeniem test-first i draft PR. Koszt: przejściowo czerwone CI, bez zmian main.
 - Istniejących szkiców 00 i 02 nie dublujemy. Aktualizujemy je w miejscu.
 - Baseline starego kodu jest uruchamiany na immutable SHA w osobnym checkout, bez konfiguracji i sekretów użytkownika; ewentualne jego błędy raportujemy, starego repo nie poprawiamy.

@@ -50,7 +50,7 @@ GREEN po fix: powyższy run, 34 pass / 0 fail na obu systemach.
 
 Regresje: repo-read-only-preserves-index-bytes; repo-cli-rejects-unignored-audit-private-path; runtime-cli-rejects-unignored-audit-private-path; repo-cli-rejects-private-directory-symlink; matrix-invalid-verification-status-and-unpinned-evidence; matrix-malformed-types-never-throw; index fingerprints; nonzero unverified CLI.
 
-Minor review zostały uwzględnione w wymaganym zakresie: committed diff check, aktualizacja PR i kompletny zapis dowodów. Nie ma odłożonych usterek kodu z review. Weryfikacja testów nie zastępuje niedostępnego lokalnego baseline.
+Minor review zostały uwzględnione w wymaganym zakresie: committed diff check, aktualizacja PR i kompletny zapis dowodów. Nie ma odłożonych usterek kodu z review. W tym historycznym checkpointcie weryfikacja testów nie zastępowała niedostępnego lokalnego baseline. Późniejszy E-10 dostarcza lokalny dowód.
 
 Manifest publicznego drzewa JarvisAIO po poprawkach: 34 pliki, truncated=false, 0 plików artifacts/audit-private w Git. Main JarvisAIO nadal 2675baa009460d95c807efdcafa1e515df07f6f4; main Jarvis- nadal 9713065f4489a168f3b0cf041ee8fd9c9f84eb94 (sprawdzono przez GitHub API).
 

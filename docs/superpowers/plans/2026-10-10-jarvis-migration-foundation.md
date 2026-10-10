@@ -187,7 +187,9 @@ Plan jest **zatwierdzony do wykonania fazy 0** poleceniem użytkownika 2026-10-1
 - **Subagent-driven (rekomendowane):** osobny wykonawca i reviewer każdego z 7 zadań, końcowy review całej gałęzi; minimalizuje ryzyko niezauważonego błędu w dowodach.
 - **Native:** jeden wykonawca po kolei realizuje wszystkie zadania z niezależnym review na końcu; mniej narzutu, słabsza izolacja błędów.
 
-## Execution record — 2026-10-10
+## Historyczny execution record — przed E-10, 2026-10-10
+
+Poniższy checkpoint opisuje wcześniejszy GitHub-only etap. Lokalna blokada została później rozwiązana w Local continuation record/E-10; aktualne checkboxes i status uwzględniają ten późniejszy dowód.
 
 Wykonano cały dostępny zakres siedmiu zadań. Checkboxes potwierdzają wykonanie dostępnego testowania/dokumentacji, nie live acceptance. Trzy niezaznaczone kroki zawierają lokalne inspekcje niedostępne w GitHub-only; ich część fixture/remote wykonano. Task 1 miał już implementację i testy w PR: zamiast symulowanego braku eksportu wykonano realne regresje RED→GREEN. Szczegóły i koszt decyzji: [status](../../master/09-PROJECT-STATUS.md).
 
