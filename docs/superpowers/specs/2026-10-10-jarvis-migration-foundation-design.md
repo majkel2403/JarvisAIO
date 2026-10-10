@@ -1,7 +1,7 @@
 # Jarvis OS — fundament przebudowy i bezpiecznej migracji
 
 **Data:** 2026-10-10
-**Status:** projekt specyfikacji do przeglądu użytkownika (zatwierdzony kierunek B, niezatwierdzona jeszcze pełna specyfikacja)
+**Status:** zatwierdzona do wykonania fazy 0 poleceniem użytkownika 2026-10-10; implementacja Core poza zakresem
 **Zakres:** architektura zarządzania przebudową, inwentaryzacja, dokumentacja, kolejność i bramki migracji.
 **Punkt odniesienia kodu:** lokalny commit `fb74cb1`, gałąź `auto/nowa-petla-2026-10-09`; istniejące niezacommitowane zmiany nie są częścią tej specyfikacji.
 
@@ -22,7 +22,7 @@ Sukces tego etapu oznacza, że zespół agentów dysponuje jednym, niesprzecznym
 
 ## 3. Fakty wejściowe i ograniczenia
 
-Stan lokalny odczytany 2026-10-10: roboczy katalog `C:\Users\majke\Desktop\jarvis-`, aktywna gałąź `auto/nowa-petla-2026-10-09`, commit `fb74cb1`, 19 pozycji zmienionych lub nieśledzonych w `git status --porcelain`. Istnieje dodatkowy worktree `chore/hermes-runtime-unification`. Stan `origin/main`, lokalnego `main` i innych worktree nie może być utożsamiany z aktualnym katalogiem roboczym.
+Stan lokalny odczytany 2026-10-10: roboczy katalog `<USER_HOME>\Desktop\jarvis-`, aktywna gałąź `auto/nowa-petla-2026-10-09`, commit `fb74cb1`, 19 pozycji zmienionych lub nieśledzonych w `git status --porcelain`. Istnieje dodatkowy worktree `chore/hermes-runtime-unification`. Stan `origin/main`, lokalnego `main` i innych worktree nie może być utożsamiany z aktualnym katalogiem roboczym.
 
 Repo zawiera już `docs/spec/`, `docs/adr/`, `docs/superpowers/`, `docs/TS-MIGRATION.md`, `hermes/`, `bridge/`, `js/`, `integrations/`, `tests/` i `workflows/`. `docs/spec/17-wdrozenie.md` dokumentuje historyczne fale funkcji W1–W5; **nie jest** planem tej przebudowy. Decyzję o JSDoc bez bundlera zapisano w `docs/TS-MIGRATION.md`: pozostaje obowiązująca dla starego interfejsu, dopóki nowy ADR jej świadomie nie zastąpi.
 
@@ -166,4 +166,4 @@ Dowody przy każdym ukończonym module: commit/PR, lista plików, komendy testó
 
 Pierwszy **osobny** plan Superpowers obejmie tylko fazę 0: (a) read-only manifest baseline, (b) inwentaryzację dokumentów i ich niespójności, (c) uzgodnienie hierarchii źródeł prawdy, (d) utworzenie `docs/master` i macierzy, (e) test poprawności odnośników oraz review. Nie obejmie jeszcze pisania nowego backendu, refaktoru produkcyjnego Hermesa, migracji UI, restartów usług ani wdrożeń.
 
-Kolejna bramka: użytkownik zatwierdza **ten plik specyfikacji**, dopiero potem powstaje szczegółowy `docs/superpowers/plans/2026-10-10-jarvis-migration-foundation.md`. Po przeglądzie planu wybiera sposób wykonania (subagent-driven lub native). Samo zatwierdzenie kierunku B nie upoważnia do wykonania tych etapów.
+Historyczna bramka została spełniona bieżącym poleceniem wykonania fazy 0. Obowiązujący szczegółowy `docs/superpowers/plans/2026-10-10-jarvis-migration-foundation.md`. Po przeglądzie planu wybiera sposób wykonania (subagent-driven lub native). Samo zatwierdzenie kierunku B nie upoważnia do wykonania tych etapów.

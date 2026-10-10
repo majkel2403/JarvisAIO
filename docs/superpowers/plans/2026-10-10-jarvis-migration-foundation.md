@@ -182,7 +182,7 @@ Uznaj fazę 0 za `complete` wyłącznie po świeżym manifeście repo/worktree, 
 
 ## Execution Handoff
 
-Plan jest **do przeglądu**, nie upoważnia jeszcze do wykonania. Po akceptacji wybierz metodę:
+Plan jest **zatwierdzony do wykonania fazy 0** poleceniem użytkownika 2026-10-10. Wybrano native/inline z końcowym niezależnym review. Zakres lokalny niedostępny w GitHub-only pozostaje unverified. Status: [checkpoint](../../master/09-PROJECT-STATUS.md). Historyczne warianty wykonania:
 
 - **Subagent-driven (rekomendowane):** osobny wykonawca i reviewer każdego z 7 zadań, końcowy review całej gałęzi; minimalizuje ryzyko niezauważonego błędu w dowodach.
 - **Native:** jeden wykonawca po kolei realizuje wszystkie zadania z niezależnym review na końcu; mniej narzutu, słabsza izolacja błędów.

@@ -1,7 +1,5 @@
 name: Phase 0 validation
 on:
-  push:
-    branches: [feat/phase0-audit]
   pull_request:
     branches: [main]
 permissions:

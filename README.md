@@ -18,24 +18,15 @@ To są **docelowe scenariusze akceptacyjne**, nie potwierdzenie istniejącej fun
 
 ## Architektura docelowa
 
-```text
-Desktop / Mobile / Telegram / Harmonogram / API
-                        |
-                Jarvis Core
-     trwałe zadania • statusy • event log • retry
-                        |
-               Orkiestracja
-                 /         \
-              Hermes      Jev (opcjonalny)
-            planowanie    szybka klasyfikacja
-                 \         /
-               Bridge / Tool Registry
-                        |
-         Windows • WWW • pliki • aplikacje
-                        |
-             wyniki + weryfikacja
-                        |
-          zdarzenia -> UI / Orb / Graph
+ ```mermaid
+flowchart TD
+  Inputs["Desktop · Mobile · Telegram · API"] --> Core["Core: trwały stan"]
+  Core --> Hermes["Hermes: plan i delegacja"]
+  Hermes --> Jev["Jev: opcjonalna porada"]
+  Hermes --> Tools["Tool Registry i Bridge"]
+  Tools --> Core
+  Core --> Events["Committed events"]
+  Events --> UI["UI · Orb · grafy"]
 ```
 
 **Granice odpowiedzialności:**
@@ -76,7 +67,12 @@ Każda kolejna faza wymaga własnej zatwierdzonej specyfikacji, planu, testów i
 
 - [Pełna koncepcja i specyfikacja architektury](docs/superpowers/specs/2026-10-10-jarvis-migration-foundation-design.md) — cel, granice systemu, odpowiedzialności, migracja i kryteria sukcesu.
 - [Szczegółowy plan fazy 0](docs/superpowers/plans/2026-10-10-jarvis-migration-foundation.md) — siedem zadań, pliki, testy i bramka akceptacji.
-- `docs/master/` — docelowe miejsce na wizję, stan obecny, architekturę, kontrakty, macierz i status. **Dokumenty te są dopiero tworzone w fazie 0.**
+- [Wizja i MVP](docs/master/00-VISION.md), [stan obecny](docs/master/01-CURRENT-STATE.md).
+- [Architektura](docs/master/02-TARGET-ARCHITECTURE.md), [właściciele](docs/master/03-MODULE-OWNERSHIP.md).
+- [Kontrakty](docs/master/04-API-AND-EVENT-CONTRACTS.md), [autonomia](docs/master/05-AUTONOMY-AND-AGENTS.md).
+- [Macierz](docs/master/06-MIGRATION-MATRIX.md), [roadmapa](docs/master/07-MIGRATION-ROADMAP.md).
+- [Testy i bramka](docs/master/08-TEST-AND-ACCEPTANCE.md), [aktualny status](docs/master/09-PROJECT-STATUS.md).
+- [Decyzje](docs/master/DECISION-LEDGER.md), [dowody](docs/master/EVIDENCE-INDEX.md), [AGENTS](AGENTS.md).
 
 ## Stan realizacji i zasady
 
@@ -85,4 +81,4 @@ Każda kolejna faza wymaga własnej zatwierdzonej specyfikacji, planu, testów i
 - Stary [Jarvis-](https://github.com/majkel2403/Jarvis-) pozostaje bez zmian. Migracja będzie oparta na konkretnych zdolnościach, testach porównawczych i możliwości cofnięcia.
 - Kod i testy fazy 0 są rozwijane w gałęzi `feat/phase0-audit`; zmiany nie są automatycznie scalane do `main`.
 
-**Obecny cel:** zakończyć fazę 0 i dopiero wtedy zatwierdzić osobną specyfikację nowego Jarvis Core.
+**Faza 0: partial / formal acceptance blocked.** Dokumentacja i narzędzia są rozwijane oraz weryfikowane przez Actions. Lokalny baseline i odzyskiwalne niezapisane zmiany są unverified. Szczegóły i wyniki: [status](docs/master/09-PROJECT-STATUS.md). Można projektować osobną specyfikację Core; implementacja fazy 1 czeka na bramkę.
