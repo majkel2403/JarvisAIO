@@ -1,0 +1,26 @@
+name: Phase 0 validation
+on:
+  push:
+    branches: [feat/phase0-audit]
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  audit:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test
+      - run: node tools/audit/validate-docs.mjs
+      - run: node tools/audit/validate-matrix.mjs docs/master/migration-matrix.json
+      - run: git diff --check
