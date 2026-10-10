@@ -68,12 +68,12 @@
 - `RepositorySnapshot = {captured_at,git_head,branch,remotes_redacted,worktrees,tracked_changes,untracked_changes,status,errors}`
 - CLI `node tools/audit/repo-manifest.mjs --repo "C:/path/to/jarvis-" --out artifacts/audit-private/repo.json`
 
-- [ ] **Step 1: RED test `repo-handles-paths`.** Fixture: tymczasowe repo, zapisany commit, Unicode `plik ł.txt`, modyfikacja śledzonego i jeden plik nieśledzony. Asercje: `assert.equal(report.git_head.length,40)` oraz `assert.equal(report.untracked_changes.length,1)`.
-- [ ] **Step 2: RED test `repo-redacts-secrets`.** Remote URL `https://alice:FAKE_SECRET@example.org/org/repo` i plik `.env`. Asercja: `assert.equal(JSON.stringify(report).includes("FAKE_SECRET"),false)`; nie czytaj treści sekretu.
-- [ ] **Step 3: Run `node --test tests/audit/repo-manifest.test.mjs`.** Expected FAIL: eksport nie istnieje.
-- [ ] **Step 4: Implement Git odczyt: `git rev-parse`, `git status --porcelain=v1 -z --untracked-files=all`, `git worktree list --porcelain` i zredagowane remote. Rozróżniaj rename/modified/untracked, brak origin i brak dostępu. Nie zapisuj pełnych ścieżek w publicznych wynikach.
-- [ ] **Step 5: Run test GREEN.** Uruchom CLI na starym repo i porównaj `git status --porcelain` przed/po — zero zmian; pełny JSON tylko w ignorowanym katalogu.
-- [ ] **Step 6: `git diff --check`, commit `git add .gitignore tools/audit/repo-manifest.mjs tests/audit/repo-manifest.test.mjs`; `git commit -m "feat(audit): add safe Git inventory"`.
+- [x] **Step 1: RED test `repo-handles-paths`.** Fixture: tymczasowe repo, zapisany commit, Unicode `plik ł.txt`, modyfikacja śledzonego i jeden plik nieśledzony. Asercje: `assert.equal(report.git_head.length,40)` oraz `assert.equal(report.untracked_changes.length,1)`.
+- [x] **Step 2: RED test `repo-redacts-secrets`.** Remote URL `https://alice:FAKE_SECRET@example.org/org/repo` i plik `.env`. Asercja: `assert.equal(JSON.stringify(report).includes("FAKE_SECRET"),false)`; nie czytaj treści sekretu.
+- [x] **Step 3: Run `node --test tests/audit/repo-manifest.test.mjs`.** Expected FAIL: eksport nie istnieje.
+- [x] **Step 4: Implement Git odczyt: `git rev-parse`, `git status --porcelain=v1 -z --untracked-files=all`, `git worktree list --porcelain` i zredagowane remote. Rozróżniaj rename/modified/untracked, brak origin i brak dostępu. Nie zapisuj pełnych ścieżek w publicznych wynikach.
+- [x] **Step 5: Run test GREEN.** Uruchom CLI na starym repo i porównaj `git status --porcelain` przed/po — zero zmian; pełny JSON tylko w ignorowanym katalogu.
+- [x] **Step 6: `git diff --check`, commit `git add .gitignore tools/audit/repo-manifest.mjs tests/audit/repo-manifest.test.mjs`; `git commit -m "feat(audit): add safe Git inventory"`.
 
 ### Task 2: Raport lokalnego runtime bez zmian w usługach
 
@@ -87,11 +87,11 @@
 - Fixture mode: `-FixturePath tests/fixtures/runtime-minimal.json`.
 - Output: `{captured_at,source,ports,gateway_status,jarvis_services,cron_visibility,errors}`, wpisy mają `status: verified|unverified`.
 
-- [ ] **Step 1: RED test `runtime-unknown`:** w fikcyjnym raporcie port niedostępny ma `assert.equal(report.ports[0].status,"unverified")`. Sprawdź brak pełnego `CommandLine` i sekretów.
-- [ ] **Step 2: `node --test tests/audit/runtime-inspect.test.mjs` → FAIL (brak skryptu).
-- [ ] **Step 3: Implement `Get-NetTCPConnection` dla 4000,8651,8642,8643; `Get-ScheduledTask` i tylko metadane gateway. Odmowa dostępu = `unverified`. Nie zatrzymuj usług, nie wypisuj `.env` ani argumentów procesów.
-- [ ] **Step 4: Test GREEN; wykonaj prywatny raport live, ręcznie potwierdź brak zmian w uruchomionych usługach.
-- [ ] **Step 5: `git diff --check` i commit trzech plików Task 2.
+- [x] **Step 1: RED test `runtime-unknown`:** w fikcyjnym raporcie port niedostępny ma `assert.equal(report.ports[0].status,"unverified")`. Sprawdź brak pełnego `CommandLine` i sekretów.
+- [x] **Step 2: `node --test tests/audit/runtime-inspect.test.mjs` → FAIL (brak skryptu).
+- [x] **Step 3: Implement `Get-NetTCPConnection` dla 4000,8651,8642,8643; `Get-ScheduledTask` i tylko metadane gateway. Odmowa dostępu = `unverified`. Nie zatrzymuj usług, nie wypisuj `.env` ani argumentów procesów.
+- [x] **Step 4: Test GREEN; wykonaj prywatny raport live, ręcznie potwierdź brak zmian w uruchomionych usługach.
+- [x] **Step 5: `git diff --check` i commit trzech plików Task 2.
 
 ### Task 3: Źródła prawdy, stan obecny i rozbieżności
 
@@ -103,11 +103,11 @@
 
 **Interfaces:** Consumes prywatne raporty Tasks 1–2 i stare `docs/adr/README.md`, `docs/TS-MIGRATION.md`, `docs/spec/17-wdrozenie.md`, spec Hermesa z 2026-10-07. Produces dla każdej tezy `captured_at, source_repo, head_sha, verification_status, evidence_ref`; konflikt ma `decision_id, sources, preferred_rule, status`.
 
-- [ ] **Step 1: RED test `decision-ledger-sources`:** znajdź oba źródła kontraktu 8642/8643 i status `open|resolved-with-evidence`; `current-state-has-sha` sprawdza datę i pełne SHA.
-- [ ] **Step 2: `node --test tests/docs/current-state.test.mjs` → FAIL.
-- [ ] **Step 3: Sprawdź zawartość starych ADR-ów i realne implementacje; nie kopiuj niezweryfikowanych opisów. Rozróżnij `verified`, `unverified`, `historical`. Aktualną liczbę niezapisanych zmian pobierz z manifestu.
-- [ ] **Step 4: Zapisz trzy dokumenty z redakcją prywatnych danych i odnośnikami do konkretnych źródeł/commitów.
-- [ ] **Step 5: Test GREEN, ręczny review dowodów, `git diff --check` i commit czterech plików.
+- [x] **Step 1: RED test `decision-ledger-sources`:** znajdź oba źródła kontraktu 8642/8643 i status `open|resolved-with-evidence`; `current-state-has-sha` sprawdza datę i pełne SHA.
+- [x] **Step 2: `node --test tests/docs/current-state.test.mjs` → FAIL.
+- [x] **Step 3: Sprawdź zawartość starych ADR-ów i realne implementacje; nie kopiuj niezweryfikowanych opisów. Rozróżnij `verified`, `unverified`, `historical`. Aktualną liczbę niezapisanych zmian pobierz z manifestu.
+- [x] **Step 4: Zapisz trzy dokumenty z redakcją prywatnych danych i odnośnikami do konkretnych źródeł/commitów.
+- [x] **Step 5: Test GREEN, ręczny review dowodów, `git diff --check` i commit czterech plików.
 
 ### Task 4: Zdefiniowanie wizji i właścicieli modułów
 
@@ -119,10 +119,10 @@
 
 **Interfaces:** Produces mapa `module_id → responsibility, reads, writes, dependencies, evidence_link`.
 
-- [ ] **Step 1: RED test `core-owns-task-state`:** Core = trwały stan, Hermes = planowanie, Jev = optional, UI = projekcja zdarzeń. `mvp-three-scenarios` musi znaleźć dashboard, Telegram bez karty i restart/wznowienie.
-- [ ] **Step 2: `node --test tests/docs/architecture.test.mjs` → FAIL.
-- [ ] **Step 3: Opisz cel MVP, granice systemu, schemat przepływu danych i właścicieli zapisów. Nie wybieraj jeszcze frameworka/bazy.
-- [ ] **Step 4: Test GREEN, sprawdź zgodność ze specyfikacją i ADR, `git diff --check`, commit czterech plików.
+- [x] **Step 1: RED test `core-owns-task-state`:** Core = trwały stan, Hermes = planowanie, Jev = optional, UI = projekcja zdarzeń. `mvp-three-scenarios` musi znaleźć dashboard, Telegram bez karty i restart/wznowienie.
+- [x] **Step 2: `node --test tests/docs/architecture.test.mjs` → FAIL.
+- [x] **Step 3: Opisz cel MVP, granice systemu, schemat przepływu danych i właścicieli zapisów. Nie wybieraj jeszcze frameworka/bazy.
+- [x] **Step 4: Test GREEN, sprawdź zgodność ze specyfikacją i ADR, `git diff --check`, commit czterech plików.
 
 ### Task 5: Kontrakty zdarzeń i zasady autonomii
 
@@ -133,10 +133,10 @@
 
 **Interfaces:** `contract_id, current_source, target_consumer, owner, decision_status, test_reference`; `decision_status = existing-verified|planned|unverified`.
 
-- [ ] **Step 1: RED test `contract-status`:** wszystkie kontrakty mają status i źródło; `jev-is-optional` wymaga fallback do Hermesa.
-- [ ] **Step 2: `node --test tests/docs/contracts.test.mjs` → FAIL.
-- [ ] **Step 3: Zapisz znane interfejsy Bridge, workflow i eventów, w tym planowane `task_id/event_id`, kolejność, idempotencję, wznowienie oraz weryfikację wykonania. Nie wymyślaj istniejących endpointów.
-- [ ] **Step 4: Test GREEN, kontrola zgodności, `git diff --check`, commit trzech plików.
+- [x] **Step 1: RED test `contract-status`:** wszystkie kontrakty mają status i źródło; `jev-is-optional` wymaga fallback do Hermesa.
+- [x] **Step 2: `node --test tests/docs/contracts.test.mjs` → FAIL.
+- [x] **Step 3: Zapisz znane interfejsy Bridge, workflow i eventów, w tym planowane `task_id/event_id`, kolejność, idempotencję, wznowienie oraz weryfikację wykonania. Nie wymyślaj istniejących endpointów.
+- [x] **Step 4: Test GREEN, kontrola zgodności, `git diff --check`, commit trzech plików.
 
 ### Task 6: Macierz migracji i bramki
 
@@ -149,11 +149,11 @@
 
 **Interfaces:** `validateMatrix(rows): {valid:boolean,errors:string[]}`. Wymagane pola wiersza: `module_id,capability,old_paths,old_commit,dependencies,owner_of_state,target_boundary,strategy,migration_status,baseline_test,target_test,rollback,evidence_link,decision_adr`. `strategy = reuse|adapter|refactor|replace|defer`.
 
-- [ ] **Step 1: RED `matrix-invalid-row`:** brak `rollback`, zduplikowany `module_id` lub nieznana strategia muszą dawać `assert.equal(result.valid,false)`.
-- [ ] **Step 2: `node --test tests/docs/migration-gates.test.mjs` → FAIL.
-- [ ] **Step 3: Zaimplementuj walidator; opisz przynajmniej: Core, Hermes, Bridge, narzędzia, workflow, event bus, pamięć/Obsidian, Jev, UI/Desktop, mobile, testy, deployment. Każdy wiersz ma prawdziwą ścieżkę/dowód lub `unverified`, nigdy zgadywane `works`.
-- [ ] **Step 4: `06` przedstawia czytelną macierz, `07` opisuje fazy 0–7 z testem, zależnościami i rollback. Dalsze fazy mają osobne bramki spec/plan.
-- [ ] **Step 5: Test GREEN, `node tools/audit/validate-matrix.mjs docs/master/migration-matrix.json` → exit 0, `git diff --check`, commit pięciu plików.
+- [x] **Step 1: RED `matrix-invalid-row`:** brak `rollback`, zduplikowany `module_id` lub nieznana strategia muszą dawać `assert.equal(result.valid,false)`.
+- [x] **Step 2: `node --test tests/docs/migration-gates.test.mjs` → FAIL.
+- [x] **Step 3: Zaimplementuj walidator; opisz przynajmniej: Core, Hermes, Bridge, narzędzia, workflow, event bus, pamięć/Obsidian, Jev, UI/Desktop, mobile, testy, deployment. Każdy wiersz ma prawdziwą ścieżkę/dowód lub `unverified`, nigdy zgadywane `works`.
+- [x] **Step 4: `06` przedstawia czytelną macierz, `07` opisuje fazy 0–7 z testem, zależnościami i rollback. Dalsze fazy mają osobne bramki spec/plan.
+- [x] **Step 5: Test GREEN, `node tools/audit/validate-matrix.mjs docs/master/migration-matrix.json` → exit 0, `git diff --check`, commit pięciu plików.
 
 ### Task 7: AGENTS, checkpoint i test dokumentacji
 
@@ -167,12 +167,12 @@
 
 **Interfaces:** `validateDocs({rootDir}): Promise<{valid:boolean,errors:string[]}>`; sprawdza obowiązkowe pliki i relatywne linki bez sieci.
 
-- [ ] **Step 1: RED `docs-broken-link`:** lokalny link do brakującego pliku daje `assert.equal(result.valid,false)`. `docs-required-files`: brak `06-MIGRATION-MATRIX.md` także daje FAIL.
-- [ ] **Step 2: `node --test tests/docs/validate-docs.test.mjs` → FAIL.
-- [ ] **Step 3: Zaimplementuj walidator. `08` ustala bezpieczne testy starego kodu wyłącznie na izolowanej kopii zatwierdzonego commitu i wymagany dowód: komenda, data, exit code, liczba błędów, brak dostępu = `unverified`.
-- [ ] **Step 4: `AGENTS.md` opisuje hierarchię źródeł i zakaz edycji starego projektu; `09` zawiera dowody, status, blokery i jedno następne zadanie. `README.md` linkuje do dokumentów master i do planu.
-- [ ] **Step 5: GREEN — `node --test`; `node tools/audit/validate-docs.mjs`; `node tools/audit/validate-matrix.mjs docs/master/migration-matrix.json`; `git diff --check`. Wszystko exit 0. Na zepsutym fixture walidator ma zwrócić niezerowy exit.
-- [ ] **Step 6: Niezależny review całości: 100% krytycznych modułów ma identyfikator, źródło, każdy konflikt ma status, każdy test ma dowód; `artifacts/audit-private` nie może trafić do Git. Jeżeli warunek nie jest spełniony, oznacz fazę `blocked`/`unverified`; commit i push tylko po dowodzie.
+- [x] **Step 1: RED `docs-broken-link`:** lokalny link do brakującego pliku daje `assert.equal(result.valid,false)`. `docs-required-files`: brak `06-MIGRATION-MATRIX.md` także daje FAIL.
+- [x] **Step 2: `node --test tests/docs/validate-docs.test.mjs` → FAIL.
+- [x] **Step 3: Zaimplementuj walidator. `08` ustala bezpieczne testy starego kodu wyłącznie na izolowanej kopii zatwierdzonego commitu i wymagany dowód: komenda, data, exit code, liczba błędów, brak dostępu = `unverified`.
+- [x] **Step 4: `AGENTS.md` opisuje hierarchię źródeł i zakaz edycji starego projektu; `09` zawiera dowody, status, blokery i jedno następne zadanie. `README.md` linkuje do dokumentów master i do planu.
+- [x] **Step 5: GREEN — `node --test`; `node tools/audit/validate-docs.mjs`; `node tools/audit/validate-matrix.mjs docs/master/migration-matrix.json`; `git diff --check`. Wszystko exit 0. Na zepsutym fixture walidator ma zwrócić niezerowy exit.
+- [x] **Step 6: Niezależny review całości: 100% krytycznych modułów ma identyfikator, źródło, każdy konflikt ma status, każdy test ma dowód; `artifacts/audit-private` nie może trafić do Git. Jeżeli warunek nie jest spełniony, oznacz fazę `blocked`/`unverified`; commit i push tylko po dowodzie.
 
 ## Phase 0 Acceptance Gate
 
@@ -182,7 +182,22 @@ Uznaj fazę 0 za `complete` wyłącznie po świeżym manifeście repo/worktree, 
 
 ## Execution Handoff
 
-Plan jest **do przeglądu**, nie upoważnia jeszcze do wykonania. Po akceptacji wybierz metodę:
+Plan jest **zatwierdzony do wykonania fazy 0** poleceniem użytkownika 2026-10-10. Wybrano native/inline z końcowym niezależnym review. Zakres lokalny niedostępny w GitHub-only pozostaje unverified. Status: [checkpoint](../../master/09-PROJECT-STATUS.md). Historyczne warianty wykonania:
 
 - **Subagent-driven (rekomendowane):** osobny wykonawca i reviewer każdego z 7 zadań, końcowy review całej gałęzi; minimalizuje ryzyko niezauważonego błędu w dowodach.
 - **Native:** jeden wykonawca po kolei realizuje wszystkie zadania z niezależnym review na końcu; mniej narzutu, słabsza izolacja błędów.
+
+## Historyczny execution record — przed E-10, 2026-10-10
+
+Poniższy checkpoint opisuje wcześniejszy GitHub-only etap. Lokalna blokada została później rozwiązana w Local continuation record/E-10; aktualne checkboxes i status uwzględniają ten późniejszy dowód.
+
+Wykonano cały dostępny zakres siedmiu zadań. Checkboxes potwierdzają wykonanie dostępnego testowania/dokumentacji, nie live acceptance. Trzy niezaznaczone kroki zawierają lokalne inspekcje niedostępne w GitHub-only; ich część fixture/remote wykonano. Task 1 miał już implementację i testy w PR: zamiast symulowanego braku eksportu wykonano realne regresje RED→GREEN. Szczegóły i koszt decyzji: [status](../../master/09-PROJECT-STATUS.md).
+
+Final verification code SHA: 804de815012ba3d5488dad42bbd3268bacfddf40.
+[Actions](https://github.com/majkel2403/JarvisAIO/actions/runs/38074893649): 6/6 jobs success; Phase 0 34/34 na Linux i Windows, walidatory exit 0; pinned legacy baseline Node 369, Python 32, smoke/types/generated catalogs pass; web-agent 12 skipped, Python 3 deselected.
+Independent final review wykonany; Important fixes RED 26/34 → GREEN 34/34. Formal Phase 0 remains partial/blocked on local manifest/recovery evidence. Nie rozpoczęto fazy 1 i nie scalono PR.
+
+## Local continuation record — 2026-10-10
+
+Późniejsze polecenie punktu 1 użytkownika upoważniło Remote Desktop Commander do read-only audit i backupu poza źródłem. Wcześniejszy GitHub-only blokował trzy lokalne kroki; wykonano je teraz. Świeży manifest, 19 zmian, 3 worktrees, runtime inspector PS 5.1 exit 0, verified recovery copies i niezmienione źródło: [E-10](../../master/EVIDENCE-INDEX.md). Pseudoref metadata zachowano po dodatkowej kontroli. Pełny data/runtime backup i live Hermes health nadal poza dowodem; niczego nie oznaczono works.
+Fundament fazy 0 kompletny w zdefiniowanym zakresie, bez Core implementation. Draft phase 1 spec/plan wymagają zatwierdzenia. Nie wykonano merge ani migracji wybranych projektów.

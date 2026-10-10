@@ -1,0 +1,91 @@
+name: Phase 0 validation
+on:
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  audit:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test
+      - run: node tools/audit/validate-docs.mjs
+      - run: node tools/audit/validate-matrix.mjs docs/master/migration-matrix.json
+      - run: node tools/audit/validate-public-data.mjs
+      - run: git diff --check ${{ github.event.pull_request.base.sha }} HEAD
+  legacy-node-baseline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: majkel2403/Jarvis-
+          ref: 9713065f4489a168f3b0cf041ee8fd9c9f84eb94
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Legacy unit baseline (no live services)
+        run: node --test "tests/unit/*.test.js"
+      - name: Legacy web agent fixtures
+        if: always()
+        run: node --test integrations/tests/web-agent.test.mjs
+  legacy-python-baseline:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: majkel2403/Jarvis-
+          ref: 9713065f4489a168f3b0cf041ee8fd9c9f84eb94
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install aiohttp pytest pyyaml
+      - run: python -m pytest -m unit -v
+  legacy-browser-baseline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: majkel2403/Jarvis-
+          ref: 9713065f4489a168f3b0cf041ee8fd9c9f84eb94
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm i --no-save --ignore-scripts playwright@1.56.1
+      - run: npx playwright install --with-deps chromium
+      - name: Browser smoke on isolated static server
+        run: |
+          python3 -m http.server 8090 >/tmp/jarvis-static.log 2>&1 &
+          node tests/e2e/smoke.js http://localhost:8090
+  legacy-static-baseline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: majkel2403/Jarvis-
+          ref: 9713065f4489a168f3b0cf041ee8fd9c9f84eb94
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - run: npm run typecheck
+      - name: Generated catalogs match baseline
+        if: always()
+        run: |
+          node bridge/export-tools.js
+          node tools/gen-spec.js
+          git diff --exit-code -- bridge/tools.json docs/spec
