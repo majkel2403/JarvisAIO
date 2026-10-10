@@ -113,3 +113,30 @@ test('repo-cli-rejects-unignored-audit-private-path',async()=>{
   assert.equal(r.status,1);
  });
 });
+
+test('repo-read-only-preserves-index-bytes',async()=>{
+ await fixture(async dir=>{
+  const {readFile,utimes}=await import('node:fs/promises');
+  const before=await readFile(join(dir,'.git','index'));
+  const later=new Date(Date.now()+60000);
+  await utimes(join(dir,'plik ł.txt'),later,later);
+  await inspectRepository({repoDir:dir});
+  assert.deepEqual(await readFile(join(dir,'.git','index')),before);
+ });
+});
+test('repo-cli-rejects-private-directory-symlink',async()=>{
+ await fixture(async dir=>{
+  const {symlink}=await import('node:fs/promises');
+  const {spawnSync}=await import('node:child_process');
+  const outside=await mkdtemp(join(tmpdir(),'jarvis-outside-'));
+  try{
+   await mkdir(join(dir,'artifacts'));
+   await writeFile(join(dir,'.gitignore'),'artifacts/audit-private/\n');
+   await symlink(outside,join(dir,'artifacts','audit-private'),'junction');
+   const {fileURLToPath}=await import('node:url');
+   const script=fileURLToPath(new URL('../../tools/audit/repo-manifest.mjs',import.meta.url));
+   const r=spawnSync(process.execPath,[script,'--repo',dir,'--out',join(dir,'artifacts','audit-private','report.json')],{cwd:dir,encoding:'utf8'});
+   assert.equal(r.status,1);
+  }finally{await rm(outside,{recursive:true,force:true});}
+ });
+});
