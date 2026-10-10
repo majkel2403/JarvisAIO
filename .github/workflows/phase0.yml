@@ -21,6 +21,7 @@ jobs:
       - run: node --test
       - run: node tools/audit/validate-docs.mjs
       - run: node tools/audit/validate-matrix.mjs docs/master/migration-matrix.json
+      - run: node tools/audit/validate-public-data.mjs
       - run: git diff --check
   legacy-node-baseline:
     runs-on: ubuntu-latest
