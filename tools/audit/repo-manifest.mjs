@@ -1,12 +1,13 @@
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
-import { resolve, dirname } from 'node:path';
+import { resolve, dirname, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { mkdir, writeFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
+import { mkdir, writeFile, lstat } from 'node:fs/promises';
 
 const exec = promisify(execFile);
 async function git(repoDir, ...args) {
-  const { stdout } = await exec('git', ['-C', repoDir, ...args], { encoding: 'buffer', maxBuffer: 16 * 1024 * 1024 });
+  const { stdout } = await exec('git', ['--no-optional-locks', '-C', repoDir, ...args], { encoding: 'buffer', timeout: 10000, maxBuffer: 16 * 1024 * 1024 });
   return stdout.toString('utf8');
 }
 function safeRemote(url) {
@@ -37,7 +38,8 @@ export async function inspectRepository({ repoDir, includeFileHashes = true }) {
   if (!repoDir) throw new TypeError('repoDir is required');
   const dir = resolve(repoDir), errors = [];
   let git_head = null, branch = null, remotes_redacted = [], worktrees = [];
-  let tracked_changes = [], untracked_changes = [];
+  let tracked_changes = [], untracked_changes = [], index_fingerprints = [];
+  let upstream_relation = {status:'unverified', ahead:null, behind:null};
   try { git_head = (await git(dir, 'rev-parse', 'HEAD')).trim(); } catch { errors.push('head-unavailable'); }
   try { branch = (await git(dir, 'branch', '--show-current')).trim() || '(detached)'; } catch { errors.push('branch-unavailable'); }
   try {
@@ -60,7 +62,20 @@ export async function inspectRepository({ repoDir, includeFileHashes = true }) {
       present: true
     }));
   } catch { errors.push('worktrees-unavailable'); }
-  return { captured_at: new Date().toISOString(), git_head, branch, remotes_redacted, worktrees, tracked_changes, untracked_changes, status: errors.length ? 'unverified' : 'verified', errors };
+  if (includeFileHashes) {
+    try {
+      const entries = (await git(dir, 'ls-files', '--stage', '-z')).split('\0').filter(Boolean);
+      index_fingerprints = entries.map(record => {
+        const tab = record.indexOf('\t'), [mode, blob_sha, stage] = record.slice(0, tab).split(' ');
+        return {mode, blob_sha, stage:Number(stage), path_sha256:createHash('sha256').update(record.slice(tab+1)).digest('hex')};
+      });
+    } catch { errors.push('index-unavailable'); }
+  }
+  try {
+    const counts = (await git(dir, 'rev-list', '--left-right', '--count', 'HEAD...@{upstream}')).trim().split(/\s+/).map(Number);
+    if(counts.length===2&&counts.every(Number.isInteger))upstream_relation={status:'verified',ahead:counts[0],behind:counts[1]};
+  } catch { /* no upstream is explicitly unknown, not a fabricated match */ }
+  return { index_fingerprints, hash_scope:'git-index-only; working-tree content not read', upstream_relation, captured_at: new Date().toISOString(), git_head, branch, remotes_redacted, worktrees, tracked_changes, untracked_changes, status: errors.length ? 'unverified' : 'verified', errors };
 }
 async function cli() {
   const args = process.argv.slice(2);
@@ -68,12 +83,20 @@ async function cli() {
   const repoDir = get('--repo'), out = get('--out');
   if (!repoDir || !out) throw new Error('Usage: node repo-manifest.mjs --repo PATH --out PATH');
   const output = resolve(out);
-  if (!output.split(/[\\/]/).includes('audit-private')) throw new Error('Output must be inside audit-private directory');
+  const privateRoot = resolve(process.cwd(), 'artifacts', 'audit-private');
+  if (!output.startsWith(privateRoot + sep)) throw new Error('Output must be inside ignored artifacts/audit-private');
+  for (let path = output; path !== process.cwd(); path = dirname(path)) {
+    try { if((await lstat(path)).isSymbolicLink())throw new Error('symlink-output'); }
+    catch(e) { if(e.code !== 'ENOENT')throw e; }
+    if(dirname(path)===path)break;
+  }
+  await exec('git', ['--no-optional-locks', 'check-ignore', '--quiet', '--no-index', '--', output], {timeout:10000});
   const result = await inspectRepository({ repoDir });
   await mkdir(dirname(output), { recursive: true });
   await writeFile(output, JSON.stringify(result, null, 2) + '\n', { mode: 0o600 });
   process.stdout.write('Private audit snapshot saved; status: ' + result.status + '\n');
+  if(result.status==='unverified')process.exitCode=1;
 }
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  cli().catch(e => { console.error(e.message); process.exitCode = 1; });
+  cli().catch(e => { console.error('Audit failed; verify repository access and ignored private output location'); process.exitCode = 1; });
 }

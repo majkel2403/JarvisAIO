@@ -2,13 +2,16 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {execFileSync} from 'node:child_process';
 import {mkdtemp, readFile, rm} from 'node:fs/promises';
-import {join} from 'node:path';
+import {join,resolve} from 'node:path';
 import {tmpdir} from 'node:os';
 test('runtime-unknown: fixture never proves a live service and strips private fields', async () => {
  const dir = await mkdtemp(join(tmpdir(), 'jarvis-runtime-'));
  try {
-  const out = join(dir, 'audit-private', 'runtime.json');
-  execFileSync('pwsh', ['-NoProfile','-File','tools/audit/runtime-inspect.ps1','-FixturePath','tests/fixtures/runtime-minimal.json','-OutputPath',out]);
+  const out = join(dir, 'artifacts', 'audit-private', 'runtime.json');
+  execFileSync('git',['init','--quiet',dir]);
+  const {writeFile}=await import('node:fs/promises');
+  await writeFile(join(dir,'.gitignore'),'artifacts/audit-private/\n');
+  execFileSync('pwsh', ['-NoProfile','-File',resolve('tools/audit/runtime-inspect.ps1'),'-FixturePath',resolve('tests/fixtures/runtime-minimal.json'),'-OutputPath',out],{cwd:dir});
   const json = await readFile(out,'utf8'), report = JSON.parse(json);
   assert.equal(report.ports[0].status,'unverified');
   assert.equal(report.gateway_status,'unverified');

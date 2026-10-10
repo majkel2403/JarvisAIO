@@ -3,8 +3,19 @@ param(
  [string]$FixturePath
 )
 $ErrorActionPreference = 'Stop'
+trap { [Console]::Error.WriteLine('Runtime audit failed; verify ignored output location and access.'); exit 1 }
 $out = [IO.Path]::GetFullPath($OutputPath)
-if (($out -split '[\\/]') -notcontains 'audit-private') { throw 'Output must be inside audit-private' }
+$privateRoot = [IO.Path]::GetFullPath((Join-Path (Get-Location).Path 'artifacts/audit-private'))
+$comparison = if ($env:OS -eq 'Windows_NT') { [StringComparison]::OrdinalIgnoreCase } else { [StringComparison]::Ordinal }
+if (-not $out.StartsWith($privateRoot + [IO.Path]::DirectorySeparatorChar, $comparison)) { throw 'private-output-required' }
+for ($parent = $out; $parent -and $parent -ne (Get-Location).Path; $parent = Split-Path -Parent $parent) {
+ if (Test-Path -LiteralPath $parent) {
+  $item = Get-Item -LiteralPath $parent -Force
+  if ($item.Attributes -band [IO.FileAttributes]::ReparsePoint) { throw 'symlink-output' }
+ }
+}
+& git --no-optional-locks -C (Get-Location).Path check-ignore --quiet --no-index -- $out
+if ($LASTEXITCODE -ne 0) { throw 'output-not-ignored' }
 $errors = @()
 $ports = @()
 $services = @()

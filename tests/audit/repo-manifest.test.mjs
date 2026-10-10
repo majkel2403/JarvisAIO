@@ -78,8 +78,9 @@ test('repo-cli-handles-Unicode-and-spaces', async () => {
     await mkdir(folder);
     const script = join(folder, 'repo-manifest.mjs');
     await copyFile(source, script);
-    const out = join(dir, 'audit-private', 'report.json');
-    execFileSync(process.execPath, [script, '--repo', dir, '--out', out]);
+    const out = join(dir, 'artifacts', 'audit-private', 'report.json');
+    await writeFile(join(dir,'.gitignore'),'artifacts/audit-private/\n');
+    execFileSync(process.execPath, [script, '--repo', dir, '--out', out],{cwd:dir});
     assert.equal(JSON.parse(await readFile(out, 'utf8')).status, 'verified');
   });
 });
@@ -100,7 +101,14 @@ test('repo-cli-unverified-exits-nonzero-without-private-path-error',async()=>{
  try {
   const {spawnSync}=await import('node:child_process');
   const missing=join(dir,'private-unavailable');
-  const result=spawnSync(process.execPath,['tools/audit/repo-manifest.mjs','--repo',missing,'--out',join(dir,'audit-private','snapshot.json')],{encoding:'utf8'});
+  git(dir,'init','--quiet');
+  await writeFile(join(dir,'.gitignore'),'artifacts/audit-private/\n');
+  const {fileURLToPath}=await import('node:url');
+  const {readFile}=await import('node:fs/promises');
+  const script=fileURLToPath(new URL('../../tools/audit/repo-manifest.mjs',import.meta.url));
+  const out=join(dir,'artifacts','audit-private','snapshot.json');
+  const result=spawnSync(process.execPath,[script,'--repo',missing,'--out',out],{cwd:dir,encoding:'utf8'});
+  assert.equal(JSON.parse(await readFile(out,'utf8')).status,'unverified');
   assert.equal(result.status,1);
   assert.equal(result.stderr.includes(missing),false);
  }finally{await rm(dir,{recursive:true,force:true});}
