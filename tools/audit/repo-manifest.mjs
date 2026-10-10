@@ -1,6 +1,7 @@
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
-import { resolve, basename, dirname } from 'node:path';
+import { resolve, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { mkdir, writeFile } from 'node:fs/promises';
 
 const exec = promisify(execFile);
@@ -10,6 +11,7 @@ async function git(repoDir, ...args) {
 }
 function safeRemote(url) {
   // Never return credentials, local filesystem paths, tokens or query parameters.
+  if (/^[A-Za-z]:[\\\\/]/.test(url) || url.startsWith('/') || url.startsWith('\\\\')) return '[redacted]';
   if (/^https?:\/\//i.test(url)) {
     try { const u = new URL(url); return u.hostname.toLowerCase(); } catch { return '[redacted]'; }
   }
@@ -72,6 +74,6 @@ async function cli() {
   await writeFile(output, JSON.stringify(result, null, 2) + '\n', { mode: 0o600 });
   process.stdout.write('Private audit snapshot saved; status: ' + result.status + '\n');
 }
-if (process.argv[1] && resolve(process.argv[1]) === resolve(new URL(import.meta.url).pathname.replace(/^\/(?=[A-Za-z]:\/)/, ''))) {
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   cli().catch(e => { console.error(e.message); process.exitCode = 1; });
 }
