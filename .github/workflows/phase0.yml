@@ -24,3 +24,19 @@ jobs:
       - run: node tools/audit/validate-docs.mjs
       - run: node tools/audit/validate-matrix.mjs docs/master/migration-matrix.json
       - run: git diff --check
+  legacy-node-baseline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: majkel2403/Jarvis-
+          ref: 9713065f4489a168f3b0cf041ee8fd9c9f84eb94
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Legacy unit baseline (no live services)
+        run: node --test "tests/unit/*.test.js"
+      - name: Legacy web agent fixtures
+        if: always()
+        run: node --test integrations/tests/web-agent.test.mjs
