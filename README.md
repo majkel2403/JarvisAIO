@@ -52,7 +52,7 @@ flowchart TD
 
 | Faza | Zakres | Status |
 | --- | --- | --- |
-| 0 | Audyt starego Jarvisa, źródła prawdy, dokumentacja i macierz migracji | **W toku** |
+| 0 | Audyt starego Jarvisa, źródła prawdy, dokumentacja i macierz migracji | **partial / formal acceptance blocked** |
 | 1 | Core: cykl życia zadania, trwały event log, wznowienie | Planowane |
 | 2 | Bridge, adaptery i narzędzia | Planowane |
 | 3 | Pamięć, dane i kontekst | Planowane |

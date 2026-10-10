@@ -24,6 +24,6 @@ GitHub API potwierdziło zdalny main i pełne drzewo (truncated=false). Ten SHA 
 
 Hermes, Windows, Telegram, gateway identity/health, porty, autostart i Hermes cron: **unverified**. Fixture runtime na runnerze nie jest inspekcją komputera użytkownika. Otwarte gniazdo nie potwierdza tożsamości procesu.
 
-Testy fazy 0 wykonuje GitHub Actions na izolowanych runnerach Linux i Windows. Pierwsze 2 testy istniejącego PR przeszły; dodane regresje najpierw wykazały błędy local remote i Unicode CLI, następnie 6/6 przeszło. Task 2: 7/7 z fixture przeszło. Cały workflow nadal czerwony, ponieważ walidatory kolejnych zadań jeszcze nie istnieją. Końcowy checkpoint: [status](09-PROJECT-STATUS.md).
+Testy fazy 0 wykonuje GitHub Actions na izolowanych runnerach Linux i Windows. Pierwsze 2 testy istniejącego PR przeszły; dodane regresje najpierw wykazały błędy local remote i Unicode CLI, następnie 6/6 przeszło. Task 2: 7/7 z fixture przeszło. To były historyczne etapy RED/GREEN. Po końcowych poprawkach faza 0 ma 34/34 testów GREEN na obu runnerach i trzy zielone walidatory; źródła i ograniczenia w aktualnym statusie. Końcowy checkpoint: [status](09-PROJECT-STATUS.md).
 
 Stare W1–W5 z [17-wdrozenie](https://github.com/majkel2403/Jarvis-/blob/9713065f4489a168f3b0cf041ee8fd9c9f84eb94/docs/spec/17-wdrozenie.md) są historycznym planem UI, nie fazami nowej migracji. JSDoc/tsc bez bundlera z [TS-MIGRATION](https://github.com/majkel2403/Jarvis-/blob/9713065f4489a168f3b0cf041ee8fd9c9f84eb94/docs/TS-MIGRATION.md) dotyczy starego UI, nie wyboru technologii nowego Core.

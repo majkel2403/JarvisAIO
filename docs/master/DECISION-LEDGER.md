@@ -17,3 +17,13 @@ Hierarchia faktów: świeży test/inspekcja > kod w pełnym SHA > historyczny op
 - Commity testów RED są konieczne, aby Actions wykonał kod; wymóg „push tylko po green” zastępujemy oznaczeniem test-first i draft PR. Koszt: przejściowo czerwone CI, bez zmian main.
 - Istniejących szkiców 00 i 02 nie dublujemy. Aktualizujemy je w miejscu.
 - Baseline starego kodu jest uruchamiany na immutable SHA w osobnym checkout, bez konfiguracji i sekretów użytkownika; ewentualne jego błędy raportujemy, starego repo nie poprawiamy.
+
+## Końcowy review — 2026-10-10
+
+Independent review: no Critical. Important naprawiono po reprodukcji: Git optional index locks, private output outside ignored root/symlink escape, verification_status/evidence/decision validation. Malformed matrix fields również objęte regresją. [Dowody RED→GREEN](EVIDENCE-INDEX.md): 26 pass/8 fail → 34 pass/0 fail na obu systemach.
+
+CLI outputs są dopuszczone tylko wewnątrz ignorowanego artifacts/audit-private względem bieżącego repo; git check-ignore jest wymagany, symlink/reparse escape odrzucony. Manifest używa --no-optional-locks i hashy indeksu bez odczytu working-tree contents. Brak upstream nie jest dowodem synchronizacji. Index hashes nie są backupem niezapisanych zmian.
+
+Ruling: nie kasujemy istniejącej implementacji Task 1 tylko po to, by symulować brak eksportu. Wykonano rzeczywiste regresje RED→GREEN; oryginalny RED poprzedniej sesji pozostaje unverified. Koszt: nie odtwarzamy historycznego TDD, ale dowodzimy aktualne behavior.
+
+Minor review uwzględniono w wymaganym zakresie PR/status/evidence oraz committed diff check. Brak odłożonych usterek review. Rulings nie rozszerzają zgody na Core, merge lub stare repo.
