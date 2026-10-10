@@ -105,3 +105,11 @@ test('repo-cli-unverified-exits-nonzero-without-private-path-error',async()=>{
   assert.equal(result.stderr.includes(missing),false);
  }finally{await rm(dir,{recursive:true,force:true});}
 });
+
+test('repo-cli-rejects-unignored-audit-private-path',async()=>{
+ await fixture(async dir=>{
+  const {spawnSync}=await import('node:child_process');
+  const r=spawnSync(process.execPath,['tools/audit/repo-manifest.mjs','--repo',dir,'--out',join(dir,'docs','audit-private','report.json')],{encoding:'utf8'});
+  assert.equal(r.status,1);
+ });
+});

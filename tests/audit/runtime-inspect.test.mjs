@@ -17,3 +17,12 @@ test('runtime-unknown: fixture never proves a live service and strips private fi
   assert.equal(json.includes('FAKE_SECRET'),false);
  } finally {await rm(dir,{recursive:true,force:true});}
 });
+
+test('runtime-cli-rejects-unignored-audit-private-path',async()=>{
+ const dir=await mkdtemp(join(tmpdir(),'jarvis-runtime-invalid-'));
+ try {
+  const {spawnSync}=await import('node:child_process');
+  const r=spawnSync('pwsh',['-NoProfile','-File','tools/audit/runtime-inspect.ps1','-FixturePath','tests/fixtures/runtime-minimal.json','-OutputPath',join(dir,'docs','audit-private','report.json')],{encoding:'utf8'});
+  assert.notEqual(r.status,0);
+ }finally{await rm(dir,{recursive:true,force:true});}
+});

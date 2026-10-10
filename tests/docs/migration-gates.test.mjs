@@ -9,3 +9,13 @@ test('matrix-invalid-row: invalid strategy or status',()=>{
  for(const change of [{strategy:'copy-all'},{migration_status:'works'},{old_commit:'main'},{dependencies:['missing']},{old_paths:['../secret']},{rollback:''}])assert.equal(validateMatrix([{...row,...change}]).valid,false);
 });
 test('matrix-invalid-row: malformed collection',()=>{for(const x of [null,{},[],[null]])assert.equal(validateMatrix(x).valid,false);});
+
+test('matrix-invalid-verification-status-and-unpinned-evidence',()=>{
+ for(const change of [{verification_status:'works'},{evidence_link:'https://github.com/does-not-exist'},{decision_adr:'D-999'}])
+  assert.equal(validateMatrix([{...row,...change}]).valid,false);
+});
+test('matrix-malformed-types-never-throw',()=>{
+ const r={...row,migration_status:'verified',baseline_test:{}};
+ assert.doesNotThrow(()=>validateMatrix([r]));
+ assert.equal(validateMatrix([r]).valid,false);
+});
