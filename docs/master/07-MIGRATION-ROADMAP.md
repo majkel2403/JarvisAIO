@@ -22,3 +22,7 @@ Można przygotować projekt specyfikacji lifecycle bez dostępu live. Nie rozpoc
 ## Obserwacja i wycofanie
 
 Migracja jest przełączana na jedną zdolność. Nowy i stary writer nie działają równocześnie na tych samych danych. Porównanie baseline→target obejmuje dane i skutki, nie tylko wygląd. W razie regresji zatrzymujemy nowy writer, rozstrzygamy skutki, odtwarzamy backup i wracamy do starej zdolności. Usunięcie starego kodu jest osobnym zadaniem po obserwacji.
+
+## Przygotowanie fazy 1
+
+[Projekt lifecycle Core](../superpowers/specs/2026-10-10-jarvis-core-task-lifecycle-design.md) i [plan wykonania](../superpowers/plans/2026-10-10-jarvis-core-task-lifecycle.md) są draft. Opisują izolowany prototyp, trwały zapis, dedupe, receipt verification i recovery bez powtarzania niepewnego skutku. Nie zmieniają bramki D-005 ani nie zatwierdzają wyboru technologii całego systemu.

@@ -67,6 +67,7 @@ Każda kolejna faza wymaga własnej zatwierdzonej specyfikacji, planu, testów i
 
 - [Pełna koncepcja i specyfikacja architektury](docs/superpowers/specs/2026-10-10-jarvis-migration-foundation-design.md) — cel, granice systemu, odpowiedzialności, migracja i kryteria sukcesu.
 - [Szczegółowy plan fazy 0](docs/superpowers/plans/2026-10-10-jarvis-migration-foundation.md) — siedem zadań, pliki, testy i bramka akceptacji.
+- [Projekt specyfikacji fazy 1](docs/superpowers/specs/2026-10-10-jarvis-core-task-lifecycle-design.md) i [projekt planu Core](docs/superpowers/plans/2026-10-10-jarvis-core-task-lifecycle.md) — draft, bez zatwierdzenia i implementacji.
 - [Wizja i MVP](docs/master/00-VISION.md), [stan obecny](docs/master/01-CURRENT-STATE.md).
 - [Architektura](docs/master/02-TARGET-ARCHITECTURE.md), [właściciele](docs/master/03-MODULE-OWNERSHIP.md).
 - [Kontrakty](docs/master/04-API-AND-EVENT-CONTRACTS.md), [autonomia](docs/master/05-AUTONOMY-AND-AGENTS.md).

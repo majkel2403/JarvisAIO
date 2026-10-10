@@ -57,3 +57,7 @@ Brakuje lokalnego manifestu i dowodu odzyskiwalności niezapisanych zmian, wymag
 Jedno następne zadanie poza bieżącym zakresem: uzyskać bezpieczny lokalny manifest i potwierdzenie zachowania zmian w osobno dozwolonym środowisku. Ten checkpoint nie uruchamia operacji Windows ani nie wymaga kolejnej decyzji w tej sesji.
 
 PR pozostaje draft, bez merge. Main JarvisAIO i stary Jarvis nie zostały zmienione.
+
+## Kontynuacja — projekt fazy 1
+
+Przygotowano [draft specyfikacji Core](../superpowers/specs/2026-10-10-jarvis-core-task-lifecycle-design.md) i [draft planu](../superpowers/plans/2026-10-10-jarvis-core-task-lifecycle.md). Zakres: lifecycle, SQLite transaction proposal, dedupe, receipts, replay i restart fixtures. Żaden krok implementacyjny nie został wykonany. Wybór runtime/storage jest propozycją do zatwierdzenia, nie decyzją master. D-005 oraz unverified zakres fazy 0 pozostają bez zmian. Dokumenty będą sprawdzone w Actions i niezależnym review; wyniki w PR.
