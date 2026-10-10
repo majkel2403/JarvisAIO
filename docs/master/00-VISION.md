@@ -1,8 +1,25 @@
-Jarvis OS is an autonomous AI work system. A user gives an outcome, Hermes plans and delegates, Jarvis Core persists tasks and events, Bridge executes tools, and UI displays real events. Jev is optional. Phase 0 documents the target; it does not claim a working new Core.
+# Jarvis OS — wizja i MVP
 
-MVP acceptance scenarios:
-1. Build a dashboard, verify files and tests, and retain progress when the UI closes.
-2. Receive and process a Telegram task with the browser closed.
-3. Resume a task after a restart without duplicating side effects.
+Status: planned. Ten dokument opisuje produkt docelowy, nie działający nowy system.
 
-Principles: persistent backend state, observable real execution, evidence-based verification, reversible migration, old Jarvis unchanged. Runtime claims not proven by GitHub must be marked unverified.
+## Dla kogo i po co
+
+Dla użytkownika, który chce zlecać całe rezultaty: tworzenie aplikacji, analizę projektu, porządkowanie informacji i wykonywanie pracy w usługach oraz na komputerze. Użytkownik określa cel i granice. Jarvis planuje, wykonuje, sprawdza i zachowuje dowody. Zmniejsza liczbę ręcznych kroków i pozwala wrócić do zadania po przerwie.
+
+Hermes jest mózgiem planowania, Jarvis Core właścicielem trwałego postępu, Bridge wykonawcą narzędzi. Jev pozostaje opcjonalny. UI pokazuje zdarzenia i wyniki; animacja nie jest dowodem wykonania.
+
+## Trzy scenariusze akceptacyjne MVP
+
+1. **dashboard**: zlecenie stworzenia prostego dashboardu daje pliki, wynik testów i dowody. Zamknięcie i ponowne otwarcie karty nie usuwa postępu. UI odtwarza rezultat z Core.
+2. **Telegram bez otwartej karty**: wejściowy adapter zapisuje task, worker wykonuje zatwierdzony zakres, verifier sprawdza rezultat, a wynik wraca kanałem wejścia.
+3. **restart i wznowienie**: po zatrzymaniu procesu stan i próby pozostają. Operacja odczytowa może zostać powtórzona; zapis ze skutkiem niepewnym podlega reconciliation, nigdy ślepemu retry.
+
+Miara MVP: trzy scenariusze E2E na fixture oraz jedna kontrolowana integracja; brak utraty tasków, brak podwójnych skutków, completed wyłącznie z dowodem. Dopiero kolejne fazy zapewnią pełne integracje.
+
+## Przyszłe możliwości
+
+Wiele agentów może pracować nad rozłącznymi częściami projektu. Workflow może łączyć planowanie, kod, testy i naprawy. Pamięć zachowuje kontekst z pochodzeniem. Desktop i Mobile zapewniają dostęp do tego samego zadania. Orb, graf 3D i Cinematic Engine pokazują realny przebieg. Laboratoria sieci neuronowych, symulacji agentów i paper trading mają osobne cele, dane i specyfikacje.
+
+## Granice
+
+Faza 0 tworzy audyt, kontrakty, testy dokumentacji i macierz migracji. Nie implementuje backendu, frontendu, nowego agenta, live trading ani produkcyjnej migracji. Stary Jarvis działa niezależnie; nie ma automatycznego współdzielenia jego danych. Premium UI i efekty nie blokują Core.
