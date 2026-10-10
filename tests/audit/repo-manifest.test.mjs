@@ -42,3 +42,44 @@ test('repo-redacts-secrets: remote password and .env path never leave inventory'
     assert.equal(report.remotes_redacted[0].host, 'example.org');
   });
 });
+
+test('repo-redacts-local-remotes', async () => {
+  await fixture(async dir => {
+    git(dir, 'remote', 'add', 'origin', 'C:/private/repository');
+    const report = await inspectRepository({repoDir: dir});
+    assert.equal(report.remotes_redacted[0].host, '[redacted]');
+  });
+});
+test('repo-renames-and-multiple-worktrees', async () => {
+  await fixture(async dir => {
+    git(dir, 'mv', 'plik ł.txt', 'zmieniony ł.txt');
+    const extra = await mkdtemp(join(tmpdir(), 'jarvis-worktree-'));
+    try {
+      git(dir, 'worktree', 'add', '--detach', extra);
+      const report = await inspectRepository({repoDir: dir});
+      assert.equal(report.tracked_changes[0].type, 'renamed-or-copied');
+      assert.equal(report.tracked_changes.length, 1);
+      assert.equal(report.worktrees.length, 2);
+      assert.equal(JSON.stringify(report).includes(extra), false);
+    } finally { git(dir, 'worktree', 'remove', '--force', extra); }
+  });
+});
+test('repo-missing-is-unverified', async () => {
+  const report = await inspectRepository({repoDir: join(tmpdir(), 'does-not-exist-jarvisaio')});
+  assert.equal(report.status, 'unverified');
+  assert.ok(report.errors.includes('head-unavailable'));
+});
+test('repo-cli-handles-Unicode-and-spaces', async () => {
+  await fixture(async dir => {
+    const {fileURLToPath} = await import('node:url');
+    const source = fileURLToPath(new URL('../../tools/audit/repo-manifest.mjs', import.meta.url));
+    const {readFile, copyFile} = await import('node:fs/promises');
+    const folder = join(dir, 'narzędzia ze spacją');
+    await mkdir(folder);
+    const script = join(folder, 'repo-manifest.mjs');
+    await copyFile(source, script);
+    const out = join(dir, 'audit-private', 'report.json');
+    execFileSync(process.execPath, [script, '--repo', dir, '--out', out]);
+    assert.equal(JSON.parse(await readFile(out, 'utf8')).status, 'verified');
+  });
+});
