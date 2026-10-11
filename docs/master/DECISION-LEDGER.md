@@ -34,3 +34,10 @@ D-005 resolved-with-evidence po osobnym poleceniu punktu 1 i wskazaniu Remote De
 Ruling: CLI uruchomiono w nowym prywatnym audit-context z własnym git init/.gitignore, ponieważ lokalny JarvisAIO stoi na main bez ignorowanej ścieżki. Nie zmieniono jego main ani starego worktree. Surowe raporty tylko ignored artifacts/audit-private; recovery copy poza repo. Zamiast reset/clean/stash wykorzystano odrębne restore-test copies.
 Review ujawnił potrzebę kontroli pełnych inventory, junctions i operation metadata. Kontrole wykonane. REBASE_HEAD bez rebase directories zachowano wraz z ORIG_HEAD i sprawdzono możliwość odczytu obiektów; nie usuwano pozostałości.
 D-001 nadal open: gniazdo 8642 nasłuchuje, ale owner identity/health unverified. Faza 0 oznacza komplet fundamentu, nie operacyjną akceptację Hermesa ani zgodę na migrację.
+## Decyzja projektowa Living AI Desktop — 2026-10-11
+
+- **D-007 — resolved-with-evidence (design direction):** użytkownik zatwierdził Living AI Desktop z **jednym local-first Core**, Hermesem jako planistą, Bridge jako wykonawcą, optional Jev oraz Desktop/Orb jako projekcją rzeczywistych zdarzeń. Źródło projektu: [wizja](00-VISION.md#living-ai-desktop--zatwierdzony-kierunek-2026-10-11) i [architektura](02-TARGET-ARCHITECTURE.md#living-ai-desktop--specyfikacja-projektowa-2026-10-11). Status dotyczy **kierunku**, nie zatwierdzenia szczegółowej specyfikacji ani wdrożenia.
+- **D-008 — open (future technology selection):** React + TypeScript jako kandydat frontendowy, Tauri jako opcjonalna obudowa. Ostateczne decyzje zależą od spec/plan fazy 6; prototypowy pin Node.js/SQLite w draft fazy 1 nie przesądza wyboru technologii całego systemu.
+- **D-009 — resolved-with-evidence (scope boundary):** nowa specyfikacja Living Desktop dopisuje ustalenia do istniejących dokumentów, nie zastępuje historycznego Phase 0, nie tworzy drugiego Core i nie zmienia bramek faz 1–7. Przygotowanie dokumentów nie jest zgodą na implementację, PR merge ani edycję starego repo.
+
+Te decyzje są opisem zakresu projektowego. Live możliwości nadal wymagają odrębnych pomiarów i testów.

@@ -26,3 +26,14 @@ Migracja jest przełączana na jedną zdolność. Nowy i stary writer nie dział
 ## Przygotowanie fazy 1
 
 [Projekt lifecycle Core](../superpowers/specs/2026-10-10-jarvis-core-task-lifecycle-design.md) i [plan wykonania](../superpowers/plans/2026-10-10-jarvis-core-task-lifecycle.md) są draft. Opisują izolowany prototyp, trwały zapis, dedupe, receipt verification i recovery bez powtarzania niepewnego skutku. Nie zmieniają bramki D-005 ani nie zatwierdzają wyboru technologii całego systemu.
+## Living AI Desktop — ścieżka wdrożenia zgodna z fazami 0–7 (design 2026-10-11)
+
+Użytkownik zatwierdził **kierunek architektury** local-first Core + żywy read-only pulpit. Specyfikacja szczegółowa znajduje się w istniejącym [02-TARGET-ARCHITECTURE.md](02-TARGET-ARCHITECTURE.md#living-ai-desktop--specyfikacja-projektowa-2026-10-11) i wymaga odrębnego przeglądu przed przygotowaniem planu implementacji tego zakresu.
+
+- **Brama 1:** niezależny Core z task/event/snapshot/replay i restart fixtures; obecny projekt lifecycle pozostaje draft. Żadnego wymagania uruchomienia Orb, React ani Hermesa live w tej fazie.
+- **Brama 2:** adaptery Registry/Bridge, receipts i reconciliation z udowodnionym kontrolowanym skutkiem; UI nie jest wymagany.
+- **Bramy 3–5:** zachować dotychczasową migrację pamięci, agentów i Jeva, bez dodatkowych właścicieli zadań.
+- **Brama 6:** dopiero tutaj zintegrowany Living Desktop, Process Log, telemetria, Orb i mobile; weryfikować real events, snapshot/replay, scenariusze bez karty, ograniczony ruch i 390×844.
+- **Brama 7:** dopiero po osobnych projektach laboratoria, Semantic Zoom i cyfrowy bliźniak. Prototypy wizualne na fixtures nie są dowodem integracji.
+
+Rollback GUI oznacza wyłączenie nowego renderera przy zachowaniu zapisów Core. Rollback adaptera wymaga rozstrzygnięcia niepewnych efektów przed przełączeniem writer; never dual-writer. Dokumentacja Live Desktop nie oznacza zgody na merge, implementację ani migrację starego repo.

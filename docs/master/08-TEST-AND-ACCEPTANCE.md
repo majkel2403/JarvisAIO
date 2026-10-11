@@ -29,3 +29,23 @@ Pełny lokalny manifest repo/worktree; odzyskiwalne źródła niezacommitowanych
 ## Testy fazy 1 i dalszych
 
 Core: duplicate command/event, invalid transition, verifying receipt, event gap replay, restart między skutkiem a receipt, expired lease/fencing, cancellation i reconciliation. Integracje: dashboard, Telegram bez karty i restart bez duplikacji. Testy zapisujące dane wyłącznie na fixture/copy; migracja danych wymaga testu odczytu backupu. Zewnętrzny live acceptance wymaga konkretnego dowodu i osobnego zakresu.
+## Żywy pulpit — plan testów odbiorczych (faza 6, planned)
+
+Te scenariusze **nie były jeszcze wykonane**. Wymagają osobnej specyfikacji, planu i wyników CI/live; nie zmieniają osiągniętej akceptacji fazy 0 ani zakresu fazy 1.
+
+| ID | Scenariusz | Oczekiwany, mierzalny dowód |
+| --- | --- | --- |
+| LD-01 | Nowe polecenie w Desktop, potem zamknięcie karty | jeden task_id w Core; worker kontynuuje kroki niezależne od UI; powrót pokazuje zapisane zdarzenia |
+| LD-02 | Telegram przy zamkniętej karcie | zatwierdzona zdolność wykonuje się headless, receipt i wynik docierają kanałem wejścia |
+| LD-03 | Restart procesu w trakcie niepewnego skutku | Core zachowuje task, blokuje bezmyślny retry, wymaga reconciliation |
+| LD-04 | Duplikaty eventów, luka sequence i reconnect | UI deduplikuje, robi resync i otrzymuje ten sam stan co snapshot źródłowy |
+| LD-05 | Niepotwierdzony tool receipt lub verifier failed | nie ma animacji completed; Process Log pokazuje failed/waiting i dowód |
+| LD-06 | Zanik Bridge i brak aktywnego Windows Desktop | jawne stale/unknown lub unavailable; zadania niezależne nie zostają zablokowane |
+| LD-07 | Orb i Process Log po replay | te same event_id i statusy dają tę samą semantyczną sekwencję; animacje mogą się różnić czasowo |
+| LD-08 | WebGL off, reduced motion, wolne urządzenie | sterowanie i komplet informacji działają bez animacji; Core nie wpływa na rendering |
+| LD-09 | Mobile 390×844 i desktop, zoom 200% | brak poziomego przewijania kluczowych kontrolek, czytelny status, działanie klawiaturą |
+| LD-10 | Telemetria stara lub niedostępna | oznaczenie czasu pomiaru, stale/unknown zamiast wymyślonych liczb |
+| LD-11 | Wiele kart równocześnie | ten sam stan z Core; nie ma drugiego writer ani podwójnego skutku |
+| LD-12 | Ukończenie z prawdziwym receipt verifiera | zielony stan Orb i completed tylko dla tego task_id, link do evidence |
+
+**Kryterium końcowe:** testy dla idempotencji, odtwarzania, błędów, a11y i responsywności; raport CI zawiera SHA, datę, komendy, exit codes, real skipped/unverified; integracja live ma własny zredagowany dowód i jasno wyliczone ograniczenia. Żaden ekran demo nie potwierdza działania Hermesa live.

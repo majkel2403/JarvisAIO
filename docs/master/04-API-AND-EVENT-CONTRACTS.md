@@ -34,3 +34,14 @@ Status: plan granic. existing-verified oznacza zbadane deklaracje w kodzie immut
 Snapshot zawiera last_sequence/revision. Klient odbiera zdarzenia po cursor, odrzuca duplikaty, wykrywa lukę i żąda snapshot/replay. Niedostępny stary cursor daje jawny resync; nie udaje kompletnej historii. Zmiana schema wymaga migracji/adaptera i contract tests.
 
 Błędy mają stabilny code: invalid_input, unavailable, conflict, deadline_exceeded, cancelled, verification_failed, effect_unknown. Retry tylko z policy narzędzia. Anulowanie nie cofa automatycznie skutku; compensation jest osobnym, udokumentowanym krokiem. Rejestr kontraktów nie przyznaje blanket permission do wszystkich skutków.
+## Living AI Desktop — kontrakt projekcji (draft, faza 6)
+
+**Nie jest to działający endpoint ani nowe źródło prawdy.** C-06/C-07 oraz koperty Command/Task/Event powyżej pozostają nadrzędne. Dopiero osobna specyfikacja fazy 6 wybierze transport i definitywną schemę projekcji.
+
+1. **Read model dla UI:** pochodna task_id, revision, last_sequence, status, plan_version, evidence_refs, presentation_reason i ograniczona lista ostatnich zdarzeń. Fields reason/evidence są zredagowanymi odczytami dostępnych źródeł, a nie uprawnieniem do pobrania wszystkich plików.
+2. **Health snapshot:** {source, observed_at, health_state, freshness}, gdzie health_state obejmuje verified-online, verified-offline, stale, unknown. To telemetria niezależna od task lifecycle; brak ostatniej próbki nie oznacza zero CPU lub „Hermes online”.
+3. **Sposób synchronizacji:** snapshot wraz z last_sequence; klient subskrybuje committed events i wykonuje replay od last_sequence, odrzuca duplicate event_id, a przy luce robi resync. Wyścig między snapshotem a subskrypcją rozwiązuje ponowny replay po cursor. Kolejność per task.
+4. **Wizualizacja:** mapowanie typów zdarzeń istniejącej fazy 1 (task.created, task.transitioned, attempt.started, attempt.receipted, task.verified, task.recovery_blocked itd.) na stan HUD. Zmiany wyglądu nie tworzą kontraktów mutacji. completed może być przedstawione tylko przy pozytywnym verifier receipt.
+5. **Sterowanie:** Desktop/Mobile wysyłają command do Core przez przyszły adapter; żaden klient nie może bezpośrednio zapisać Task, Receipt, status ani evidence. Dla narzędzia wymagającego sesji Windows registry ujawnia required_client/capability i niezależny worker stwierdza jego dostępność.
+
+**Polityka prywatności:** projection payload i event stream tylko pola dozwolone, bez tokenów, surowych stdout/arguments, local paths i prywatnych audytów. Błędy muszą być jawne i typowane; do obsługi śledzenia służą task_id, event_id, invocation_id i correlation_id. Contract tests będą testami fazy 6, nie fałszywym raportem o bieżących usługach.

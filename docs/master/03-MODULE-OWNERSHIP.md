@@ -26,3 +26,19 @@ Własność starego stanu jest rozdzielona: core.js/localStorage, store.js/Index
 ## Interfejsy odpowiedzialności
 
 Core→Hermes: task snapshot i plan request. Hermes→Core: plan proposal. Core→Agent/Bridge: immutable brief i tool invocation. Bridge→Core: receipt. Core→Memory: record z provenance. Core→Event Bus→UI: committed event i snapshot. Dokładne kontrakty określa [rejestr](04-API-AND-EVENT-CONTRACTS.md).
+## Living AI Desktop — uszczegółowienie granic (projekt 2026-10-11)
+
+Nie dodajemy nowych właścicieli task state ani równoległego event busa. Ta sekcja doprecyzowuje **już istniejące** moduły z tabeli:
+
+| Istniejący module_id | Dodatkowa odpowiedzialność Living Desktop | Czego nie może robić |
+| --- | --- | --- |
+| core | autorytatywny snapshot, revision, event sequence, dowody | renderować HUD i przechowywać układu okien |
+| event-bus | fan-out utrwalonych eventów, cursory i replay adaptera | aktualizować task.status poza Core |
+| desktop | składać projekcje zdarzeń/telemetrii, zarządzać dock, oknami, trybem UI | oznaczać ukończenia i wykonywać bezpośrednio narzędzi |
+| mobile | konsumpcja tej samej projekcji, kompaktowy układ i komendy | zakładać dostępny zalogowany pulpit Windows |
+| orb | wyłącznie efemeryczna animacja stanów; reduced motion | emitować fakty, receipts i zapisywać lifecycle |
+| bridge | capabilities Desktop i receipts ze źródła skutków | uznawać animację/klik za dowód sukcesu |
+| workflow | zależności kroków i verifier, zgodnie z Core | własny globalny task log |
+| memory | semantyczny kontekst i provenance | udawać historię prób i receipts |
+
+Trzy rozdzielone strumienie: (1) **committed task events** przez Core/event-bus, (2) **health/telemetry** ze znanym źródłem/czasem świeżości, (3) **local view preferences** zapisane przez klienta. Własność każdej nowej zmiennej musi należeć dokładnie do jednej z tych kategorii. Renderery nie mają prawa do własnej kopii autorytatywnego stanu. Stare localStorage/IndexedDB podlegają planowanej migracji i testom porównawczym, nie automatycznemu importowi.

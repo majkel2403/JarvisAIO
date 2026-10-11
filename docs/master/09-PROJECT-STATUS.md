@@ -68,3 +68,10 @@ Porty 4000/8651/8642 nasłuchują, 8643 nie nasłuchuje. To dowód gniazd, nie t
 Nowy checkpoint dokumentacji weryfikuje Actions; final SHA/run i wyniki są w PR. Prywatne backupy nie weszły do Git.
 
 Końcowy review lokalnego checkpointu c037e17c6c23c739c99db60a37c6ea1217f706d0: no Critical/Important. Drobne stare sformułowania o niedostępnym lokalnym baseline oznaczono historycznie i zastąpiono E-10. Reviewer ocenił dokumenty i gate accuracy; prywatne restore artifacts zweryfikował wykonawca na urządzeniu, nie Actions.
+## Living AI Desktop — projekt dokumentacyjny 2026-10-11
+
+Użytkownik zatwierdził **kierunek** Living AI Desktop: local-first Core + projekcyjny Desktop, event-driven Orb, Process Log i praca backendu bez karty. Dokładniejszą specyfikację projektową dopisano do istniejących master docs na osobnej gałęzi dokumentacyjnej **docs/living-ai-desktop-2026-10-11** (bazującej na PR #1); oczekuje na przegląd i zatwierdzenie treści. Jest to aktualizacja projektu, a nie ukończenie nowej fazy.
+
+**Nie zmieniono statusu:** faza 0 complete zgodnie z historycznym dowodem; Core fazy 1 nadal draft/unimplemented; fazy 2–7 planned; tożsamość i live health Hermesa nadal unverified na podstawie ostatniej inspekcji. Nie wykonano implementacji, migracji, deployu, merge ani operacji na starym repo. Dokumentacji Living Desktop nie wolno przedstawiać jako potwierdzonego runtime.
+
+**Następna bramka:** użytkownik przegląda [architekturę Living Desktop](02-TARGET-ARCHITECTURE.md#living-ai-desktop--specyfikacja-projektowa-2026-10-11). Po zatwierdzeniu szczegółowego projektu zgodnie z Superpowers przygotować plan realizacji w ramach istniejących faz, bez dublowania planu Core fazy 1. Żadna praca implementacyjna nie została upoważniona.

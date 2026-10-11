@@ -23,3 +23,25 @@ Wiele agentów może pracować nad rozłącznymi częściami projektu. Workflow 
 ## Granice
 
 Faza 0 tworzy audyt, kontrakty, testy dokumentacji i macierz migracji. Nie implementuje backendu, frontendu, nowego agenta, live trading ani produkcyjnej migracji. Stary Jarvis działa niezależnie; nie ma automatycznego współdzielenia jego danych. Premium UI i efekty nie blokują Core.
+## Living AI Desktop — zatwierdzony kierunek (2026-10-11)
+
+**Status decyzji:** użytkownik zatwierdził kierunek produktu Living AI Desktop. Szczegółowa [specyfikacja architektury](02-TARGET-ARCHITECTURE.md#living-ai-desktop--specyfikacja-projektowa-2026-10-11) jest przedstawiona do przeglądu, nie jest jeszcze zatwierdzonym planem implementacji. Nowy frontend, Core i integracje nadal mają status **planned**.
+
+### Doświadczenie użytkownika
+
+Living AI Desktop to lokalny, żywy pulpit AI. Użytkownik zleca rezultat zamiast pojedynczych kliknięć. Hermes planuje, wykonawcy korzystają z narzędzi, Core zapisuje rzeczywisty postęp, a ekran natychmiast pokazuje potwierdzone zdarzenia. Po zamknięciu i ponownym otwarciu widoku można odtworzyć zadania oraz ich dowody. Kluczowy cel: **praca backendowa nie zależy od otwartej karty**, a widok nie może udawać niezapisanej pracy.
+
+Zachowujemy kompozycję referencyjnego HUD: centralny orb, lewe wskaźniki stanu, prawy Process Log, moduły narzędzi i dolny dock okien. Forma jest środkiem do zrozumienia działania, nie konkurencyjnym silnikiem autonomii. Widoki programowania, agentów i pulpitu mogą adaptować układ; trading i laboratoria są osobnymi późniejszymi projektami.
+
+### Warunki sukcesu Living Desktop
+
+- Polecenie utworzone przez Desktop trafia do Core z identyfikatorem idempotencji; użytkownik widzi prawdziwy status i historię.
+- Zamknięcie strony nie anuluje pracy niezależnego workera. Operacje wymagające aktywnego Windows Desktop jawnie czekają na dostępność tej zdolności.
+- Po ponownym połączeniu aplikacja uzyskuje spójny snapshot i brakujące zdarzenia, także po utracie sieci i duplikacji komunikatów.
+- Ukończenie i efekty triumfu w UI wymagają dowodu verifiera; brak weryfikacji nie staje się sukcesem.
+- Na telefonie układ jest czytelny dla 390×844; tryb ograniczonego ruchu nie zmienia wykonania.
+- MVP zdefiniowane wyżej pozostaje obowiązującą bramką Core. Nowa warstwa Living Desktop należy przede wszystkim do **fazy 6**, po dostarczeniu zależności faz 1–5.
+
+### Granice tego zatwierdzenia
+
+Zgoda dotyczy **kierunku architektury**, nie implementacji, merge PR, wdrożenia, edycji starego repo ani wyboru frameworka całego systemu. Przygotowanie tej dokumentacji nie zmienia istniejących bramek faz 1–7.
